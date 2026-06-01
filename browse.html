@@ -146,7 +146,6 @@
           return s ? s.element : null;
         }).filter((v, i, a) => v && a.indexOf(v) === i);
         const totalPts = Object.values(b.skillPoints || {}).reduce((a, b) => a + b, 0);
-        const pet = b.pet ? TBH.PETS.find(p => p.id === b.pet) : null;
         const time = new Date(b.updatedAt || b.createdAt || Date.now());
 
         return `
@@ -161,8 +160,6 @@
             </div>
             <div class="build-tags">
               ${elements.map(e => `<span class="element-${e}">${e}</span>`).join('')}
-              ${pet ? `<span>🐾 ${pet.name}</span>` : ''}
-              ${b.pet && !pet ? `<span>🐾 ${b.pet}</span>` : ''}
             </div>
             <div class="build-stats-line">
               <span>${skillNames.length ? '⚔ ' + skillNames.join(', ') : 'No skills equipped'}</span>
