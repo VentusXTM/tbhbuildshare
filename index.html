@@ -27,65 +27,92 @@
   <!-- ─── Container ───────────────────────────────────────── -->
   <main class="container">
 
-    <!-- Hero Selector -->
-    <h2 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--text-secondary)">
-      Choose Your Hero
-    </h2>
-    <div class="hero-selector" id="hero-selector"></div>
-
-    <!-- Build Info -->
-    <div class="build-info">
-      <label for="build-name">Build Name</label>
-      <input type="text" id="build-name" placeholder="My Awesome Build" maxlength="60">
-      <div class="level-control">
-        <label for="hero-level">Lv</label>
-        <input type="range" id="hero-level" min="1" max="100" value="100">
-        <span class="points-display">Level <strong id="level-display">100</strong></span>
-      </div>
+    <!-- TAB BAR -->
+    <div class="tab-bar" id="tab-bar">
+      <button class="tab-btn active" data-tab="skills">Skill Planner</button>
+      <button class="tab-btn" data-tab="runes">Rune Tree</button>
     </div>
 
-    <!-- Main Panels -->
-    <div class="panel-grid">
-      <!-- Skill Tree -->
-      <div class="panel">
-        <h3>Skill Tree</h3>
-        <div id="skill-tree"></div>
+    <!-- TAB: SKILL PLANNER -->
+    <div id="tab-skills" class="tab-content active">
+
+      <!-- Hero Selector -->
+      <h2 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--text-secondary)">
+        Choose Your Hero
+      </h2>
+      <div class="hero-selector" id="hero-selector"></div>
+
+      <!-- Build Info -->
+      <div class="build-info">
+        <label for="build-name">Build Name</label>
+        <input type="text" id="build-name" placeholder="My Awesome Build" maxlength="60">
+        <div class="level-control">
+          <label for="hero-level">Lv</label>
+          <input type="range" id="hero-level" min="1" max="100" value="100">
+          <span class="points-display">Level <strong id="level-display">100</strong></span>
+        </div>
       </div>
 
-      <!-- Active Skills + Pets -->
-      <div>
-        <div class="panel" style="margin-bottom:16px">
-          <h3>Active Skills</h3>
-          <div id="active-skills"></div>
+      <!-- Main Panels -->
+      <div class="panel-grid">
+        <!-- Skill Tree -->
+        <div class="panel">
+          <h3>Skill Tree</h3>
+          <div id="skill-tree"></div>
         </div>
 
+        <!-- Active Skills -->
+        <div>
+          <div class="panel" style="margin-bottom:16px">
+            <h3>Active Skills</h3>
+            <div id="active-skills"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Build Stats -->
+      <div class="panel" style="margin-bottom:16px">
+        <h3>Base Stats (Lv.1, no gear)</h3>
+        <div class="build-stats" id="build-stats"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button class="btn btn-primary" data-action="save-build">💾 Save Build</button>
+        <button class="btn btn-success" data-action="share-build">🔗 Share Link</button>
+        <button class="btn btn-warning" data-action="export-build">📥 Export</button>
+        <button class="btn btn-outline" data-action="import-build">📤 Import</button>
+      </div>
+
+      <!-- Saved Builds -->
+      <h2 style="font-size:16px;font-weight:600;margin:24px 0 10px;color:var(--text-secondary)">
+        Saved Builds
+      </h2>
+      <div id="saved-builds"></div>
+
+    </div>
+
+    <!-- TAB: RUNE TREE -->
+    <div id="tab-runes" class="tab-content">
+      <div class="rune-tree-header">
+        <h3>Rune Tree</h3>
+        <div class="rune-tree-actions">
+          <span class="rune-total-gold" id="rune-total-gold">Total: 0 Gold</span>
+          <button class="btn btn-sm btn-outline" id="rune-reset">Reset All</button>
+        </div>
+      </div>
+      <div class="rune-tree-container" id="rune-tree-container">
+        <canvas id="rune-canvas"></canvas>
+        <div id="rune-tooltip" class="rune-tooltip"></div>
       </div>
     </div>
-
-    <!-- Build Stats -->
-    <div class="panel" style="margin-bottom:16px">
-      <h3>Base Stats (Lv.1, no gear)</h3>
-      <div class="build-stats" id="build-stats"></div>
-    </div>
-
-    <!-- Actions -->
-    <div class="actions">
-      <button class="btn btn-primary" data-action="save-build">💾 Save Build</button>
-      <button class="btn btn-success" data-action="share-build">🔗 Share Link</button>
-      <button class="btn btn-warning" data-action="export-build">📥 Export</button>
-      <button class="btn btn-outline" data-action="import-build">📤 Import</button>
-    </div>
-
-    <!-- Saved Builds -->
-    <h2 style="font-size:16px;font-weight:600;margin:24px 0 10px;color:var(--text-secondary)">
-      Saved Builds
-    </h2>
-    <div id="saved-builds"></div>
 
   </main>
 
   <!-- ─── Scripts ─────────────────────────────────────────── -->
   <script src="data.js"></script>
+  <script src="rune-tree.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
