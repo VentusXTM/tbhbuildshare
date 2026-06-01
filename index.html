@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBH Build Share — Task Bar Hero Build Planner</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="https://www.taskbarhero.wiki/favicon.png">
+  <meta name="description" content="Plan, share, and browse builds for TBH: Task Bar Hero. Community build planner with skill trees, gear, runes, and pets.">
+</head>
+<body>
+
+  <!-- ─── Header ─────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-logo">
+      <img src="https://www.taskbarhero.wiki/favicon.png" alt="TBH">
+      <span>TBH Build Share</span>
+    </div>
+    <nav class="header-nav" id="header-nav">
+      <a href="index.html" class="active">Planner</a>
+      <a href="browse.html">Browse</a>
+      <a href="https://www.taskbarhero.wiki/" target="_blank" rel="noopener">Wiki ↗</a>
+      <a href="https://store.steampowered.com/app/3678970" target="_blank" rel="noopener">Steam ↗</a>
+    </nav>
+  </header>
+
+  <!-- ─── Container ───────────────────────────────────────── -->
+  <main class="container">
+
+    <!-- Hero Selector -->
+    <h2 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--text-secondary)">
+      Choose Your Hero
+    </h2>
+    <div class="hero-selector" id="hero-selector"></div>
+
+    <!-- Build Info -->
+    <div class="build-info">
+      <label for="build-name">Build Name</label>
+      <input type="text" id="build-name" placeholder="My Awesome Build" maxlength="60">
+      <div class="level-control">
+        <label for="hero-level">Lv</label>
+        <input type="range" id="hero-level" min="1" max="100" value="100">
+        <span class="points-display">Level <strong id="level-display">100</strong></span>
+      </div>
+    </div>
+
+    <!-- Main Panels -->
+    <div class="panel-grid">
+      <!-- Skill Tree -->
+      <div class="panel">
+        <h3>Skill Tree</h3>
+        <div id="skill-tree"></div>
+      </div>
+
+      <!-- Active Skills + Pets -->
+      <div>
+        <div class="panel" style="margin-bottom:16px">
+          <h3>Active Skills</h3>
+          <div id="active-skills"></div>
+        </div>
+        <div class="panel">
+          <h3>Pet</h3>
+          <div class="pet-grid" id="pet-selector"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gear -->
+    <div class="panel" style="margin-bottom:16px">
+      <h3>Gear Loadout</h3>
+      <div class="gear-grid" id="gear-grid"></div>
+    </div>
+
+    <!-- Build Stats -->
+    <div class="panel" style="margin-bottom:16px">
+      <h3>Base Stats (Lv.1, no gear)</h3>
+      <div class="build-stats" id="build-stats"></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn btn-primary" data-action="save-build">💾 Save Build</button>
+      <button class="btn btn-success" data-action="share-build">🔗 Share Link</button>
+      <button class="btn btn-warning" data-action="export-build">📥 Export</button>
+      <button class="btn btn-outline" data-action="import-build">📤 Import</button>
+    </div>
+
+    <!-- Saved Builds -->
+    <h2 style="font-size:16px;font-weight:600;margin:24px 0 10px;color:var(--text-secondary)">
+      Saved Builds
+    </h2>
+    <div id="saved-builds"></div>
+
+  </main>
+
+  <!-- ─── Scripts ─────────────────────────────────────────── -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

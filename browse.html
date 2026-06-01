@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Builds — TBH Build Share</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="https://www.taskbarhero.wiki/favicon.png">
+  <meta name="description" content="Browse community builds for TBH: Task Bar Hero.">
+</head>
+<body>
+
+  <!-- ─── Header ─────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-logo">
+      <img src="https://www.taskbarhero.wiki/favicon.png" alt="TBH">
+      <span>TBH Build Share</span>
+    </div>
+    <nav class="header-nav">
+      <a href="index.html">Planner</a>
+      <a href="browse.html" class="active">Browse</a>
+      <a href="https://www.taskbarhero.wiki/" target="_blank" rel="noopener">Wiki ↗</a>
+      <a href="https://store.steampowered.com/app/3678970" target="_blank" rel="noopener">Steam ↗</a>
+    </nav>
+  </header>
+
+  <!-- ─── Container ───────────────────────────────────────── -->
+  <main class="container">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px">
+      <div>
+        <h2 style="font-size:20px;font-weight:700">Browse Builds</h2>
+        <p style="color:var(--text-muted);font-size:13px;margin-top:4px">
+          Community builds saved locally. <strong id="build-count">0</strong> builds total.
+        </p>
+      </div>
+      <div style="display:flex;gap:8px">
+        <input type="text" id="search-builds" placeholder="Filter builds..."
+               style="background:var(--bg-input);border:1px solid var(--border);border-radius:4px;color:var(--text-primary);padding:8px 12px;font-size:13px;min-width:180px">
+        <select id="filter-hero"
+                style="background:var(--bg-input);border:1px solid var(--border);border-radius:4px;color:var(--text-primary);padding:8px 12px;font-size:13px">
+          <option value="">All Heroes</option>
+          <option value="knight">Knight</option>
+          <option value="ranger">Ranger</option>
+          <option value="sorcerer">Sorcerer</option>
+          <option value="priest">Priest</option>
+          <option value="hunter">Hunter</option>
+          <option value="slayer">Slayer</option>
+        </select>
+        <button class="btn btn-sm btn-outline" id="sort-toggle">Sort: Newest</button>
+      </div>
+    </div>
+
+    <div class="builds-grid" id="builds-gallery"></div>
+
+    <!-- Import Section -->
+    <div class="import-section">
+      <h3 style="font-size:14px;font-weight:600;margin-bottom:8px;color:var(--text-secondary)">
+        Import a Build
+      </h3>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px">
+        Paste a share link (URL with #build=...) or raw JSON:
+      </p>
+      <textarea id="import-text" placeholder="Paste JSON or share URL here..."></textarea>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-sm btn-primary" id="import-btn">Import</button>
+        <button class="btn btn-sm btn-outline" id="clear-all-btn" style="margin-left:auto;color:var(--danger)">Clear All</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ─── Scripts ─────────────────────────────────────────── -->
+  <script src="data.js"></script>
+  <script>
+  // ─── Browse Page Logic ─────────────────────────────────
+  (function() {
+    let builds = [];
+    let sortNewest = true;
+    let filterHero = '';
+    let filterText = '';
+
+    function loadBuilds() {
+      try {
+        const data = localStorage.getItem('tbh_builds');
+        builds = data ? JSON.parse(data) : [];
+      } catch { builds = []; }
+    }
+
+    function saveBuilds() {
+      try {
+        localStorage.setItem('tbh_builds', JSON.stringify(builds));
+      } catch {}
+    }
+
+    function renderBuilds() {
+      const gallery = document.getElementById('builds-gallery');
+      const count = document.getElementById('build-count');
+      if (!gallery) return;
+
+      let filtered = [...builds];
+
+      if (filterHero) {
+        filtered = filtered.filter(b => b.hero === filterHero);
+      }
+      if (filterText) {
+        const q = filterText.toLowerCase();
+        filtered = filtered.filter(b =>
+          b.name.toLowerCase().includes(q) ||
+          b.hero.toLowerCase().includes(q) ||
+          (b.equippedSkills || []).some(id => {
+            const skill = TBH.ACTIVE_SKILLS.find(s => s.id === id);
+            return skill && skill.name.toLowerCase().includes(q);
+          })
+        );
+      }
+
+      if (sortNewest) {
+        filtered.sort((a, b) => (b.updatedAt || b.createdAt || 0) - (a.updatedAt || a.createdAt || 0));
+      } else {
+        filtered.sort((a, b) => (a.updatedAt || a.createdAt || 0) - (b.updatedAt || b.createdAt || 0));
+      }
+
+      if (count) count.textContent = builds.length;
+
+      if (filtered.length === 0) {
+        gallery.innerHTML = `
+          <div class="empty-state" style="grid-column:1/-1">
+            <h3>${builds.length === 0 ? 'No builds yet' : 'No builds match your filter'}</h3>
+            <p>${builds.length === 0 ? 'Create your first build in the Planner and save it!' : 'Try a different search or filter.'}</p>
+            ${builds.length === 0 ? '<a href="index.html" class="btn btn-primary" style="margin-top:12px;display:inline-flex">Go to Planner</a>' : ''}
+          </div>
+        `;
+        return;
+      }
+
+      gallery.innerHTML = filtered.map(b => {
+        const hero = TBH.HEROES[b.hero];
+        const skills = b.equippedSkills || [];
+        const skillNames = skills.slice(0, 4).map(id => {
+          const s = TBH.ACTIVE_SKILLS.find(a => a.id === id);
+          return s ? s.name : null;
+        }).filter(Boolean);
+        const elements = skills.map(id => {
+          const s = TBH.ACTIVE_SKILLS.find(a => a.id === id);
+          return s ? s.element : null;
+        }).filter((v, i, a) => v && a.indexOf(v) === i);
+        const totalPts = Object.values(b.skillPoints || {}).reduce((a, b) => a + b, 0);
+        const pet = b.pet ? TBH.PETS.find(p => p.id === b.pet) : null;
+        const time = new Date(b.updatedAt || b.createdAt || Date.now());
+
+        return `
+          <div class="build-card">
+            <div class="build-header">
+              <img src="${hero ? hero.icon : ''}" alt="${hero ? hero.name : '?'}"
+                   onerror="this.style.display='none'">
+              <div>
+                <div class="build-title">${escHtml(b.name || 'Unnamed Build')}</div>
+                <div class="build-hero">${hero ? hero.name : 'Unknown'} · Lv.${b.level || 100} · ${totalPts} pts</div>
+              </div>
+            </div>
+            <div class="build-tags">
+              ${elements.map(e => `<span class="element-${e}">${e}</span>`).join('')}
+              ${pet ? `<span>🐾 ${pet.name}</span>` : ''}
+              ${b.pet && !pet ? `<span>🐾 ${b.pet}</span>` : ''}
+            </div>
+            <div class="build-stats-line">
+              <span>${skillNames.length ? '⚔ ' + skillNames.join(', ') : 'No skills equipped'}</span>
+            </div>
+            <div class="build-meta">
+              ${time.toLocaleDateString()} · ${time.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
+              ${b.notes ? '· 📝' : ''}
+            </div>
+            <div class="build-actions">
+              <button class="btn btn-sm btn-primary load-browse" data-build-id="${b.id}">Load</button>
+              <button class="btn btn-sm btn-outline share-browse" data-build-id="${b.id}">Share</button>
+              <button class="btn btn-sm btn-danger delete-browse" data-build-id="${b.id}">Delete</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function escHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function showToast(message, type = 'info') {
+      const existing = document.querySelector('.toast');
+      if (existing) existing.remove();
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    function doImport(raw) {
+      try {
+        let json = raw;
+        if (raw.includes('#build=')) {
+          const encoded = raw.split('#build=')[1].split('&')[0];
+          json = decodeURIComponent(escape(atob(encoded)));
+        }
+        const build = JSON.parse(json);
+        if (!build.hero) { showToast('Invalid build: missing hero', 'error'); return; }
+
+        const existing = builds.findIndex(b => b.id === build.id);
+        if (existing >= 0) {
+          builds[existing] = { ...build, updatedAt: Date.now() };
+        } else {
+          build.id = build.id || Date.now().toString(36);
+          build.createdAt = build.createdAt || Date.now();
+          build.updatedAt = Date.now();
+          builds.unshift(build);
+        }
+        saveBuilds();
+        renderBuilds();
+        document.getElementById('import-text').value = '';
+        showToast('Build imported!', 'success');
+      } catch (e) {
+        showToast('Import failed: ' + e.message, 'error');
+      }
+    }
+
+    // ─── Event Binding ─────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      loadBuilds();
+      renderBuilds();
+
+      // Search
+      document.getElementById('search-builds')?.addEventListener('input', (e) => {
+        filterText = e.target.value;
+        renderBuilds();
+      });
+
+      // Filter
+      document.getElementById('filter-hero')?.addEventListener('change', (e) => {
+        filterHero = e.target.value;
+        renderBuilds();
+      });
+
+      // Sort
+      document.getElementById('sort-toggle')?.addEventListener('click', (e) => {
+        sortNewest = !sortNewest;
+        e.target.textContent = sortNewest ? 'Sort: Newest' : 'Sort: Oldest';
+        renderBuilds();
+      });
+
+      // Import button
+      document.getElementById('import-btn')?.addEventListener('click', () => {
+        const text = document.getElementById('import-text').value.trim();
+        if (text) doImport(text);
+      });
+
+      // Click events
+      document.addEventListener('click', (e) => {
+        const target = e.target;
+
+        // Load
+        if (target.closest('.load-browse')) {
+          const id = target.closest('.load-browse').dataset.buildId;
+          const build = builds.find(b => b.id === id);
+          if (build) {
+            sessionStorage.setItem('tbh_import', JSON.stringify(build));
+            window.location.href = 'index.html';
+          }
+          return;
+        }
+
+        // Share
+        if (target.closest('.share-browse')) {
+          const id = target.closest('.share-browse').dataset.buildId;
+          const build = builds.find(b => b.id === id);
+          if (build) {
+            const json = JSON.stringify(build);
+            const encoded = btoa(unescape(encodeURIComponent(json)));
+            const url = window.location.origin + '/index.html#build=' + encoded;
+            navigator.clipboard.writeText(url).then(() => {
+              showToast('Share link copied!', 'success');
+            }).catch(() => {
+              // Fallback: prompt
+              prompt('Copy this link:', url);
+            });
+          }
+          return;
+        }
+
+        // Delete
+        if (target.closest('.delete-browse')) {
+          const id = target.closest('.delete-browse').dataset.buildId;
+          if (confirm('Delete this build?')) {
+            builds = builds.filter(b => b.id !== id);
+            saveBuilds();
+            renderBuilds();
+            showToast('Build deleted', 'info');
+          }
+          return;
+        }
+      });
+
+      // Clear all
+      document.getElementById('clear-all-btn')?.addEventListener('click', () => {
+        if (confirm('Delete ALL saved builds? This cannot be undone.')) {
+          if (confirm('Are you sure? All builds will be permanently removed.')) {
+            builds = [];
+            saveBuilds();
+            renderBuilds();
+            showToast('All builds cleared', 'info');
+          }
+        }
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
