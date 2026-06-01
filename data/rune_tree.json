@@ -1,0 +1,5197 @@
+[
+  {
+    "id": "rune_001",
+    "name": "Attack Damage Base",
+    "key": "attack-damage-base",
+    "x": 750,
+    "y": 180,
+    "maxLevel": 3,
+    "costs": [
+      0,
+      5000,
+      15000
+    ],
+    "statBonus": "attackDamage",
+    "statPerLevel": 1,
+    "connections": [
+      "attack-damage-core",
+      "hp-foundation",
+      "crit-chance-base",
+      "cold-affinity",
+      "xp-boost-basics",
+      "damage-reduction-base",
+      "cd-reduction-base"
+    ],
+    "tier": 1,
+    "icon": "attackDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_002",
+    "name": "Attack Speed Base",
+    "key": "attack-speed-base",
+    "x": 750,
+    "y": 220,
+    "maxLevel": 3,
+    "costs": [
+      0,
+      5000,
+      15000
+    ],
+    "statBonus": "attackSpeed",
+    "statPerLevel": 0.01,
+    "connections": [
+      "attack-speed-core",
+      "crit-chance-base",
+      "cold-affinity",
+      "xp-boost-basics",
+      "energy-regen-basics",
+      "damage-reduction-base",
+      "cd-reduction-base"
+    ],
+    "tier": 1,
+    "icon": "attackSpeed",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_003",
+    "name": "Attack Damage Core",
+    "key": "attack-damage-core",
+    "x": 790,
+    "y": 160,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "attackDamage",
+    "statPerLevel": 2,
+    "connections": [
+      "armor-foundation",
+      "fire-affinity"
+    ],
+    "tier": 2,
+    "icon": "attackDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_004",
+    "name": "Attack Speed Core",
+    "key": "attack-speed-core",
+    "x": 790,
+    "y": 240,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "attackSpeed",
+    "statPerLevel": 0.02,
+    "connections": [
+      "evasion-basics",
+      "crit-damage-core",
+      "swift-hands",
+      "lightning-affinity",
+      "gold-find-basics",
+      "quick-step",
+      "cast-speed-base"
+    ],
+    "tier": 2,
+    "icon": "attackSpeed",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_005",
+    "name": "Armor Foundation",
+    "key": "armor-foundation",
+    "x": 700,
+    "y": 145,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "armor",
+    "statPerLevel": 3,
+    "connections": [
+      "armor-plating",
+      "guard-stance"
+    ],
+    "tier": 2,
+    "icon": "armor",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_006",
+    "name": "HP Foundation",
+    "key": "hp-foundation",
+    "x": 680,
+    "y": 175,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "maxHp",
+    "statPerLevel": 10,
+    "connections": [
+      "vitality-boost",
+      "hp-regen-basics",
+      "guard-stance"
+    ],
+    "tier": 2,
+    "icon": "maxHp",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_007",
+    "name": "Armor Plating",
+    "key": "armor-plating",
+    "x": 630,
+    "y": 120,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "armor",
+    "statPerLevel": 5,
+    "connections": [
+      "heavy-plating",
+      "vitality-boost"
+    ],
+    "tier": 3,
+    "icon": "armor",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_008",
+    "name": "Vitality Boost",
+    "key": "vitality-boost",
+    "x": 610,
+    "y": 150,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "maxHp",
+    "statPerLevel": 15,
+    "connections": [
+      "fortified-hp",
+      "hp-on-kill"
+    ],
+    "tier": 3,
+    "icon": "maxHp",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_009",
+    "name": "HP Regen Basics",
+    "key": "hp-regen-basics",
+    "x": 640,
+    "y": 170,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "hpRegen",
+    "statPerLevel": 2,
+    "connections": [
+      "sustained-regen",
+      "hp-on-kill"
+    ],
+    "tier": 3,
+    "icon": "hpRegen",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_010",
+    "name": "Heavy Plating",
+    "key": "heavy-plating",
+    "x": 550,
+    "y": 100,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "armor",
+    "statPerLevel": 5,
+    "connections": [
+      "adamantine-armor",
+      "iron-skin",
+      "fortified-hp"
+    ],
+    "tier": 4,
+    "icon": "armor",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_011",
+    "name": "Fortified HP",
+    "key": "fortified-hp",
+    "x": 520,
+    "y": 130,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "maxHp",
+    "statPerLevel": 15,
+    "connections": [
+      "colossal-hp",
+      "titan-hp"
+    ],
+    "tier": 4,
+    "icon": "maxHp",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_012",
+    "name": "Sustained Regen",
+    "key": "sustained-regen",
+    "x": 540,
+    "y": 155,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "hpRegen",
+    "statPerLevel": 2,
+    "connections": [
+      "regeneration-mastery",
+      "regeneration-aura"
+    ],
+    "tier": 4,
+    "icon": "hpRegen",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_013",
+    "name": "HP on Kill",
+    "key": "hp-on-kill",
+    "x": 570,
+    "y": 180,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "hpPerKill",
+    "statPerLevel": 3,
+    "connections": [
+      "executioner-rune"
+    ],
+    "tier": 4,
+    "icon": "hpPerKill",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_014",
+    "name": "Adamantine Armor",
+    "key": "adamantine-armor",
+    "x": 400,
+    "y": 80,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "armor",
+    "statPerLevel": 5,
+    "connections": [
+      "mithril-armor",
+      "stone-shell"
+    ],
+    "tier": 5,
+    "icon": "armor",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_015",
+    "name": "Colossal HP",
+    "key": "colossal-hp",
+    "x": 370,
+    "y": 115,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "maxHp",
+    "statPerLevel": 15,
+    "connections": [
+      "endless-vitality"
+    ],
+    "tier": 5,
+    "icon": "maxHp",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_016",
+    "name": "Regeneration Mastery",
+    "key": "regeneration-mastery",
+    "x": 390,
+    "y": 145,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "hpRegen",
+    "statPerLevel": 2,
+    "connections": [
+      "regeneration-well",
+      "nature-blessing"
+    ],
+    "tier": 5,
+    "icon": "hpRegen",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_017",
+    "name": "Executioner Rune",
+    "key": "executioner-rune",
+    "x": 410,
+    "y": 170,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "hpPerKill",
+    "statPerLevel": 3,
+    "connections": [
+      "hp-harvest"
+    ],
+    "tier": 5,
+    "icon": "hpPerKill",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_018",
+    "name": "Guard Stance",
+    "key": "guard-stance",
+    "x": 660,
+    "y": 200,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "blockChance",
+    "statPerLevel": 1.5,
+    "connections": [
+      "shield-wall",
+      "life-leech-guard",
+      "vampiric-touch"
+    ],
+    "tier": 3,
+    "icon": "blockChance",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_019",
+    "name": "Shield Wall",
+    "key": "shield-wall",
+    "x": 580,
+    "y": 200,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "blockChance",
+    "statPerLevel": 1.5,
+    "connections": [
+      "fortress"
+    ],
+    "tier": 4,
+    "icon": "blockChance",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_020",
+    "name": "Life Leech Guard",
+    "key": "life-leech-guard",
+    "x": 560,
+    "y": 220,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "hpLeech",
+    "statPerLevel": 1,
+    "connections": [
+      "leech-guard-mastery",
+      "blood-shield"
+    ],
+    "tier": 4,
+    "icon": "hpLeech",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_021",
+    "name": "Fortress",
+    "key": "fortress",
+    "x": 430,
+    "y": 200,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "blockChance",
+    "statPerLevel": 1.5,
+    "connections": [
+      "block-expert",
+      "sacred-barrier"
+    ],
+    "tier": 5,
+    "icon": "blockChance",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_022",
+    "name": "Leech Guard Mastery",
+    "key": "leech-guard-mastery",
+    "x": 410,
+    "y": 225,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "hpLeech",
+    "statPerLevel": 1,
+    "connections": [
+      "leech-expert",
+      "vampiric-touch"
+    ],
+    "tier": 5,
+    "icon": "hpLeech",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_023",
+    "name": "Vampiric Touch",
+    "key": "vampiric-touch",
+    "x": 590,
+    "y": 235,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "hpPerHit",
+    "statPerLevel": 3,
+    "connections": [
+      "blood-siphon"
+    ],
+    "tier": 4,
+    "icon": "hpPerHit",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_024",
+    "name": "Blood Siphon",
+    "key": "blood-siphon",
+    "x": 450,
+    "y": 250,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "hpPerHit",
+    "statPerLevel": 3,
+    "connections": [
+      "soul-reaper"
+    ],
+    "tier": 5,
+    "icon": "hpPerHit",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_025",
+    "name": "Evasion Basics",
+    "key": "evasion-basics",
+    "x": 700,
+    "y": 215,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "dodgeChance",
+    "statPerLevel": 1,
+    "connections": [
+      "elusive-step"
+    ],
+    "tier": 3,
+    "icon": "dodgeChance",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_026",
+    "name": "Elusive Step",
+    "key": "elusive-step",
+    "x": 620,
+    "y": 250,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "dodgeChance",
+    "statPerLevel": 1,
+    "connections": [
+      "phantom-dance"
+    ],
+    "tier": 4,
+    "icon": "dodgeChance",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_027",
+    "name": "Phantom Dance",
+    "key": "phantom-dance",
+    "x": 500,
+    "y": 280,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "dodgeChance",
+    "statPerLevel": 1,
+    "connections": [],
+    "tier": 5,
+    "icon": "dodgeChance",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_028",
+    "name": "Crit Chance Base",
+    "key": "crit-chance-base",
+    "x": 700,
+    "y": 255,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "critChance",
+    "statPerLevel": 1,
+    "connections": [
+      "deadly-precision",
+      "attack-damage-surge",
+      "swift-hands"
+    ],
+    "tier": 2,
+    "icon": "critChance",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_029",
+    "name": "Crit Damage Core",
+    "key": "crit-damage-core",
+    "x": 680,
+    "y": 280,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "critDamage",
+    "statPerLevel": 3,
+    "connections": [
+      "brutal-strikes",
+      "attack-damage-surge"
+    ],
+    "tier": 2,
+    "icon": "critDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_030",
+    "name": "Deadly Precision",
+    "key": "deadly-precision",
+    "x": 630,
+    "y": 270,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "critChance",
+    "statPerLevel": 1.5,
+    "connections": [
+      "keen-eye"
+    ],
+    "tier": 3,
+    "icon": "critChance",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_031",
+    "name": "Brutal Strikes",
+    "key": "brutal-strikes",
+    "x": 600,
+    "y": 300,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "critDamage",
+    "statPerLevel": 5,
+    "connections": [
+      "critical-mass",
+      "physical-brutality",
+      "attack-damage-surge"
+    ],
+    "tier": 3,
+    "icon": "critDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_032",
+    "name": "Attack Damage Surge",
+    "key": "attack-damage-surge",
+    "x": 650,
+    "y": 295,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "attackDamage",
+    "statPerLevel": 3,
+    "connections": [
+      "power-infusion",
+      "physical-brutality",
+      "piercing-shot"
+    ],
+    "tier": 3,
+    "icon": "attackDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_033",
+    "name": "Keen Eye",
+    "key": "keen-eye",
+    "x": 550,
+    "y": 260,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "critChance",
+    "statPerLevel": 1.5,
+    "connections": [
+      "eagle-eye"
+    ],
+    "tier": 4,
+    "icon": "critChance",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_034",
+    "name": "Critical Mass",
+    "key": "critical-mass",
+    "x": 520,
+    "y": 290,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "critDamage",
+    "statPerLevel": 5,
+    "connections": [
+      "crit-mastery",
+      "power-infusion"
+    ],
+    "tier": 4,
+    "icon": "critDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_035",
+    "name": "Power Infusion",
+    "key": "power-infusion",
+    "x": 530,
+    "y": 315,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "attackDamage",
+    "statPerLevel": 3,
+    "connections": [
+      "attack-damage-mastery",
+      "splash-damage"
+    ],
+    "tier": 4,
+    "icon": "attackDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_036",
+    "name": "Physical Brutality",
+    "key": "physical-brutality",
+    "x": 560,
+    "y": 335,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "physicalDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "overpower",
+      "piercing-shot",
+      "splash-damage"
+    ],
+    "tier": 4,
+    "icon": "physicalDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_037",
+    "name": "Eagle Eye",
+    "key": "eagle-eye",
+    "x": 400,
+    "y": 260,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "critChance",
+    "statPerLevel": 1.5,
+    "connections": [
+      "sure-shot"
+    ],
+    "tier": 5,
+    "icon": "critChance",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_038",
+    "name": "Crit Mastery",
+    "key": "crit-mastery",
+    "x": 370,
+    "y": 290,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "critDamage",
+    "statPerLevel": 5,
+    "connections": [],
+    "tier": 5,
+    "icon": "critDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_039",
+    "name": "Attack Damage Mastery",
+    "key": "attack-damage-mastery",
+    "x": 380,
+    "y": 315,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "attackDamage",
+    "statPerLevel": 3,
+    "connections": [
+      "fatal-strike"
+    ],
+    "tier": 5,
+    "icon": "attackDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_040",
+    "name": "Overpower",
+    "key": "overpower",
+    "x": 400,
+    "y": 340,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "physicalDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "rending-blow",
+      "shadow-strike"
+    ],
+    "tier": 5,
+    "icon": "physicalDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_041",
+    "name": "Swift Hands",
+    "key": "swift-hands",
+    "x": 660,
+    "y": 245,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "attackSpeed",
+    "statPerLevel": 0.03,
+    "connections": [
+      "blitz"
+    ],
+    "tier": 3,
+    "icon": "attackSpeed",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_042",
+    "name": "Blitz",
+    "key": "blitz",
+    "x": 580,
+    "y": 250,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "attackSpeed",
+    "statPerLevel": 0.03,
+    "connections": [
+      "time-warp",
+      "lightning-reflexes"
+    ],
+    "tier": 4,
+    "icon": "attackSpeed",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_043",
+    "name": "Time Warp",
+    "key": "time-warp",
+    "x": 460,
+    "y": 245,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "attackSpeed",
+    "statPerLevel": 0.03,
+    "connections": [],
+    "tier": 5,
+    "icon": "attackSpeed",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_044",
+    "name": "Piercing Shot",
+    "key": "piercing-shot",
+    "x": 500,
+    "y": 340,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "projectileDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "sniper-precision"
+    ],
+    "tier": 4,
+    "icon": "projectileDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_045",
+    "name": "Sniper Precision",
+    "key": "sniper-precision",
+    "x": 350,
+    "y": 350,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "projectileDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "precision-aim"
+    ],
+    "tier": 5,
+    "icon": "projectileDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_046",
+    "name": "Splash Damage",
+    "key": "splash-damage",
+    "x": 550,
+    "y": 360,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "aoeDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "cataclysm"
+    ],
+    "tier": 4,
+    "icon": "aoeDamage",
+    "category": "Special"
+  },
+  {
+    "id": "rune_047",
+    "name": "Cataclysm",
+    "key": "cataclysm",
+    "x": 420,
+    "y": 375,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "aoeDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "berserker-rage"
+    ],
+    "tier": 5,
+    "icon": "aoeDamage",
+    "category": "Special"
+  },
+  {
+    "id": "rune_048",
+    "name": "Fire Affinity",
+    "key": "fire-affinity",
+    "x": 810,
+    "y": 150,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "fireDamage",
+    "statPerLevel": 2,
+    "connections": [
+      "fire-blast",
+      "elemental-fusion"
+    ],
+    "tier": 2,
+    "icon": "fireDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_049",
+    "name": "Cold Affinity",
+    "key": "cold-affinity",
+    "x": 820,
+    "y": 175,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "coldDamage",
+    "statPerLevel": 2,
+    "connections": [
+      "ice-shard",
+      "elemental-fusion"
+    ],
+    "tier": 2,
+    "icon": "coldDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_050",
+    "name": "Lightning Affinity",
+    "key": "lightning-affinity",
+    "x": 810,
+    "y": 200,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "lightningDamage",
+    "statPerLevel": 2,
+    "connections": [
+      "chain-lightning",
+      "elemental-fusion"
+    ],
+    "tier": 2,
+    "icon": "lightningDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_051",
+    "name": "Fire Blast",
+    "key": "fire-blast",
+    "x": 870,
+    "y": 125,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "fireDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "inferno",
+      "fire-aoe",
+      "burning-duration",
+      "flame-cascade",
+      "ice-shard"
+    ],
+    "tier": 3,
+    "icon": "fireDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_052",
+    "name": "Ice Shard",
+    "key": "ice-shard",
+    "x": 890,
+    "y": 165,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "coldDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "blizzard",
+      "cold-snap",
+      "frost-nova"
+    ],
+    "tier": 3,
+    "icon": "coldDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_053",
+    "name": "Chain Lightning",
+    "key": "chain-lightning",
+    "x": 890,
+    "y": 200,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "lightningDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "thunder-strike",
+      "static-field",
+      "tesla-coil"
+    ],
+    "tier": 3,
+    "icon": "lightningDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_054",
+    "name": "Elemental Fusion",
+    "key": "elemental-fusion",
+    "x": 870,
+    "y": 230,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "elementalResistance",
+    "statPerLevel": 3,
+    "connections": [
+      "cold-snap",
+      "elemental-ward"
+    ],
+    "tier": 3,
+    "icon": "elementalResistance",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_055",
+    "name": "Inferno",
+    "key": "inferno",
+    "x": 970,
+    "y": 100,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "fireDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "pillar-of-flame",
+      "flame-cascade",
+      "blizzard"
+    ],
+    "tier": 4,
+    "icon": "fireDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_056",
+    "name": "Fire AoE",
+    "key": "fire-aoe",
+    "x": 1020,
+    "y": 125,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "areaOfEffect",
+    "statPerLevel": 3,
+    "connections": [
+      "firestorm"
+    ],
+    "tier": 4,
+    "icon": "areaOfEffect",
+    "category": "Special"
+  },
+  {
+    "id": "rune_057",
+    "name": "Burning Duration",
+    "key": "burning-duration",
+    "x": 1000,
+    "y": 150,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "duration",
+    "statPerLevel": 3,
+    "connections": [
+      "infernal-duration",
+      "eternal-flame"
+    ],
+    "tier": 4,
+    "icon": "duration",
+    "category": "Special"
+  },
+  {
+    "id": "rune_058",
+    "name": "Blizzard",
+    "key": "blizzard",
+    "x": 1020,
+    "y": 165,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "coldDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "absolute-zero",
+      "frost-nova"
+    ],
+    "tier": 4,
+    "icon": "coldDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_059",
+    "name": "Cold Snap",
+    "key": "cold-snap",
+    "x": 1050,
+    "y": 190,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "coldDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "permafrost",
+      "frost-nova"
+    ],
+    "tier": 4,
+    "icon": "coldDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_060",
+    "name": "Thunder Strike",
+    "key": "thunder-strike",
+    "x": 1020,
+    "y": 215,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "lightningDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "storm-fury",
+      "tesla-coil"
+    ],
+    "tier": 4,
+    "icon": "lightningDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_061",
+    "name": "Static Field",
+    "key": "static-field",
+    "x": 1000,
+    "y": 240,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "lightningDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "plasma-field",
+      "tesla-coil"
+    ],
+    "tier": 4,
+    "icon": "lightningDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_062",
+    "name": "Elemental Ward",
+    "key": "elemental-ward",
+    "x": 980,
+    "y": 260,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "elementalResistance",
+    "statPerLevel": 3,
+    "connections": [
+      "aegis-barrier"
+    ],
+    "tier": 4,
+    "icon": "elementalResistance",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_063",
+    "name": "Pillar of Flame",
+    "key": "pillar-of-flame",
+    "x": 1400,
+    "y": 85,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "fireDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "fire-amplifier"
+    ],
+    "tier": 5,
+    "icon": "fireDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_064",
+    "name": "Firestorm",
+    "key": "firestorm",
+    "x": 1500,
+    "y": 110,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "areaOfEffect",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "areaOfEffect",
+    "category": "Special"
+  },
+  {
+    "id": "rune_065",
+    "name": "Infernal Duration",
+    "key": "infernal-duration",
+    "x": 1450,
+    "y": 140,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "duration",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "duration",
+    "category": "Special"
+  },
+  {
+    "id": "rune_066",
+    "name": "Absolute Zero",
+    "key": "absolute-zero",
+    "x": 1550,
+    "y": 160,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "coldDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "cold-amplifier"
+    ],
+    "tier": 5,
+    "icon": "coldDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_067",
+    "name": "Permafrost",
+    "key": "permafrost",
+    "x": 1600,
+    "y": 190,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "coldDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "frost-shield"
+    ],
+    "tier": 5,
+    "icon": "coldDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_068",
+    "name": "Storm Fury",
+    "key": "storm-fury",
+    "x": 1500,
+    "y": 215,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "lightningDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "thunderclap"
+    ],
+    "tier": 5,
+    "icon": "lightningDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_069",
+    "name": "Plasma Field",
+    "key": "plasma-field",
+    "x": 1450,
+    "y": 240,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "lightningDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "lightning-barrier"
+    ],
+    "tier": 5,
+    "icon": "lightningDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_070",
+    "name": "Aegis Barrier",
+    "key": "aegis-barrier",
+    "x": 1400,
+    "y": 265,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "elementalResistance",
+    "statPerLevel": 3,
+    "connections": [
+      "elemental-shield"
+    ],
+    "tier": 5,
+    "icon": "elementalResistance",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_071",
+    "name": "Flame Cascade",
+    "key": "flame-cascade",
+    "x": 1100,
+    "y": 95,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "fireDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "volcanic-eruption",
+      "lava-wave",
+      "frost-nova"
+    ],
+    "tier": 4,
+    "icon": "fireDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_072",
+    "name": "Volcanic Eruption",
+    "key": "volcanic-eruption",
+    "x": 1900,
+    "y": 80,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "fireDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "fire-nova",
+      "magma-core"
+    ],
+    "tier": 5,
+    "icon": "fireDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_073",
+    "name": "Lava Wave",
+    "key": "lava-wave",
+    "x": 2000,
+    "y": 110,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "aoeDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "fire-nova",
+      "crystal-armor",
+      "solar-flare"
+    ],
+    "tier": 5,
+    "icon": "aoeDamage",
+    "category": "Special"
+  },
+  {
+    "id": "rune_074",
+    "name": "Fire Nova",
+    "key": "fire-nova",
+    "x": 2200,
+    "y": 95,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "fireDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "elemental-cataclysm",
+      "inferno-core"
+    ],
+    "tier": 5,
+    "icon": "fireDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_075",
+    "name": "Frost Nova",
+    "key": "frost-nova",
+    "x": 1120,
+    "y": 195,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "coldDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "glacial-spike"
+    ],
+    "tier": 4,
+    "icon": "coldDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_076",
+    "name": "Glacial Spike",
+    "key": "glacial-spike",
+    "x": 2000,
+    "y": 195,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "coldDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "winter-storm"
+    ],
+    "tier": 5,
+    "icon": "coldDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_077",
+    "name": "Winter Storm",
+    "key": "winter-storm",
+    "x": 2200,
+    "y": 200,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "coldDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "elemental-cataclysm",
+      "frost-core"
+    ],
+    "tier": 5,
+    "icon": "coldDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_078",
+    "name": "Tesla Coil",
+    "key": "tesla-coil",
+    "x": 1100,
+    "y": 235,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "lightningDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "thunder-god"
+    ],
+    "tier": 4,
+    "icon": "lightningDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_079",
+    "name": "Thunder God",
+    "key": "thunder-god",
+    "x": 1900,
+    "y": 250,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "lightningDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "arcane-overload",
+      "lightning-rod"
+    ],
+    "tier": 5,
+    "icon": "lightningDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_080",
+    "name": "Arcane Overload",
+    "key": "arcane-overload",
+    "x": 2200,
+    "y": 255,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "lightningDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "elemental-cataclysm",
+      "storm-core"
+    ],
+    "tier": 5,
+    "icon": "lightningDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_081",
+    "name": "Elemental Cataclysm",
+    "key": "elemental-cataclysm",
+    "x": 2500,
+    "y": 200,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "elementalResistance",
+    "statPerLevel": 3,
+    "connections": [
+      "elemental-harmony"
+    ],
+    "tier": 5,
+    "icon": "elementalResistance",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_082",
+    "name": "Gold Find Basics",
+    "key": "gold-find-basics",
+    "x": 810,
+    "y": 245,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "goldFind",
+    "statPerLevel": 2,
+    "connections": [
+      "treasure-hunter",
+      "quick-step"
+    ],
+    "tier": 2,
+    "icon": "goldFind",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_083",
+    "name": "XP Boost Basics",
+    "key": "xp-boost-basics",
+    "x": 820,
+    "y": 270,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "xpBonus",
+    "statPerLevel": 2,
+    "connections": [
+      "scholar-xp"
+    ],
+    "tier": 2,
+    "icon": "xpBonus",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_084",
+    "name": "Energy Regen Basics",
+    "key": "energy-regen-basics",
+    "x": 810,
+    "y": 295,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "energyRegen",
+    "statPerLevel": 0.2,
+    "connections": [
+      "energy-flow",
+      "energy-pool"
+    ],
+    "tier": 2,
+    "icon": "energyRegen",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_085",
+    "name": "Treasure Hunter",
+    "key": "treasure-hunter",
+    "x": 880,
+    "y": 255,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "goldFind",
+    "statPerLevel": 3,
+    "connections": [
+      "midas-touch",
+      "riches-below",
+      "scholar-xp"
+    ],
+    "tier": 3,
+    "icon": "goldFind",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_086",
+    "name": "Scholar XP",
+    "key": "scholar-xp",
+    "x": 890,
+    "y": 280,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "xpBonus",
+    "statPerLevel": 3,
+    "connections": [
+      "wisdom-seeker",
+      "move-speed-boost"
+    ],
+    "tier": 3,
+    "icon": "xpBonus",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_087",
+    "name": "Energy Flow",
+    "key": "energy-flow",
+    "x": 880,
+    "y": 310,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "energyRegen",
+    "statPerLevel": 0.3,
+    "connections": [
+      "energy-surge",
+      "move-speed-boost"
+    ],
+    "tier": 3,
+    "icon": "energyRegen",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_088",
+    "name": "Energy Pool",
+    "key": "energy-pool",
+    "x": 860,
+    "y": 330,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "energyMax",
+    "statPerLevel": 8,
+    "connections": [
+      "energy-reservoir"
+    ],
+    "tier": 3,
+    "icon": "energyMax",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_089",
+    "name": "Midas Touch",
+    "key": "midas-touch",
+    "x": 980,
+    "y": 255,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "goldFind",
+    "statPerLevel": 3,
+    "connections": [
+      "dragon-hoard",
+      "riches-below",
+      "wisdom-seeker"
+    ],
+    "tier": 4,
+    "icon": "goldFind",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_090",
+    "name": "Wisdom Seeker",
+    "key": "wisdom-seeker",
+    "x": 1010,
+    "y": 280,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "xpBonus",
+    "statPerLevel": 3,
+    "connections": [
+      "enlightenment"
+    ],
+    "tier": 4,
+    "icon": "xpBonus",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_091",
+    "name": "Energy Surge",
+    "key": "energy-surge",
+    "x": 1000,
+    "y": 310,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "energyRegen",
+    "statPerLevel": 0.3,
+    "connections": [
+      "infinite-energy"
+    ],
+    "tier": 4,
+    "icon": "energyRegen",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_092",
+    "name": "Energy Reservoir",
+    "key": "energy-reservoir",
+    "x": 970,
+    "y": 335,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "energyMax",
+    "statPerLevel": 8,
+    "connections": [
+      "power-reservoir"
+    ],
+    "tier": 4,
+    "icon": "energyMax",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_093",
+    "name": "Move Speed Boost",
+    "key": "move-speed-boost",
+    "x": 990,
+    "y": 350,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "moveSpeed",
+    "statPerLevel": 8,
+    "connections": [
+      "swift-wind",
+      "nimble-fingers"
+    ],
+    "tier": 4,
+    "icon": "moveSpeed",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_094",
+    "name": "Dragon Hoard",
+    "key": "dragon-hoard",
+    "x": 1400,
+    "y": 260,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "goldFind",
+    "statPerLevel": 3,
+    "connections": [
+      "greed"
+    ],
+    "tier": 5,
+    "icon": "goldFind",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_095",
+    "name": "Enlightenment",
+    "key": "enlightenment",
+    "x": 1500,
+    "y": 285,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "xpBonus",
+    "statPerLevel": 3,
+    "connections": [
+      "knowledge-well",
+      "lore-master"
+    ],
+    "tier": 5,
+    "icon": "xpBonus",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_096",
+    "name": "Infinite Energy",
+    "key": "infinite-energy",
+    "x": 1480,
+    "y": 315,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "energyRegen",
+    "statPerLevel": 0.3,
+    "connections": [
+      "endless-energy"
+    ],
+    "tier": 5,
+    "icon": "energyRegen",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_097",
+    "name": "Power Reservoir",
+    "key": "power-reservoir",
+    "x": 1450,
+    "y": 340,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "energyMax",
+    "statPerLevel": 8,
+    "connections": [
+      "energy-well",
+      "energy-capsule"
+    ],
+    "tier": 5,
+    "icon": "energyMax",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_098",
+    "name": "Swift Wind",
+    "key": "swift-wind",
+    "x": 1520,
+    "y": 355,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "moveSpeed",
+    "statPerLevel": 8,
+    "connections": [
+      "zephyr",
+      "wind-walk"
+    ],
+    "tier": 5,
+    "icon": "moveSpeed",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_099",
+    "name": "Quick Step",
+    "key": "quick-step",
+    "x": 900,
+    "y": 240,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "moveSpeed",
+    "statPerLevel": 8,
+    "connections": [
+      "dash"
+    ],
+    "tier": 3,
+    "icon": "moveSpeed",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_100",
+    "name": "Dash",
+    "key": "dash",
+    "x": 1000,
+    "y": 240,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "moveSpeed",
+    "statPerLevel": 8,
+    "connections": [
+      "teleport"
+    ],
+    "tier": 4,
+    "icon": "moveSpeed",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_101",
+    "name": "Teleport",
+    "key": "teleport",
+    "x": 1550,
+    "y": 240,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "moveSpeed",
+    "statPerLevel": 8,
+    "connections": [
+      "speed-demon"
+    ],
+    "tier": 5,
+    "icon": "moveSpeed",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_102",
+    "name": "Riches Below",
+    "key": "riches-below",
+    "x": 1100,
+    "y": 250,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "goldFind",
+    "statPerLevel": 3,
+    "connections": [
+      "avarice",
+      "knowledge-well",
+      "energy-well"
+    ],
+    "tier": 4,
+    "icon": "goldFind",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_103",
+    "name": "Avarice",
+    "key": "avarice",
+    "x": 1950,
+    "y": 260,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "goldFind",
+    "statPerLevel": 3,
+    "connections": [
+      "avarice-mastery"
+    ],
+    "tier": 5,
+    "icon": "goldFind",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_104",
+    "name": "Knowledge Well",
+    "key": "knowledge-well",
+    "x": 2050,
+    "y": 285,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "xpBonus",
+    "statPerLevel": 3,
+    "connections": [
+      "limitless-power",
+      "wisdom-mastery"
+    ],
+    "tier": 5,
+    "icon": "xpBonus",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_105",
+    "name": "Energy Well",
+    "key": "energy-well",
+    "x": 2000,
+    "y": 315,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "energyMax",
+    "statPerLevel": 8,
+    "connections": [
+      "limitless-power",
+      "energy-mastery",
+      "void-energy"
+    ],
+    "tier": 5,
+    "icon": "energyMax",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_106",
+    "name": "Limitless Power",
+    "key": "limitless-power",
+    "x": 2200,
+    "y": 300,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "energyRegen",
+    "statPerLevel": 0.3,
+    "connections": [],
+    "tier": 5,
+    "icon": "energyRegen",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_107",
+    "name": "Nimble Fingers",
+    "key": "nimble-fingers",
+    "x": 1020,
+    "y": 370,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "dodgeChance",
+    "statPerLevel": 1,
+    "connections": [
+      "ghost-walk"
+    ],
+    "tier": 4,
+    "icon": "dodgeChance",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_108",
+    "name": "Ghost Walk",
+    "key": "ghost-walk",
+    "x": 1550,
+    "y": 380,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "dodgeChance",
+    "statPerLevel": 1,
+    "connections": [],
+    "tier": 5,
+    "icon": "dodgeChance",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_109",
+    "name": "Damage Reduction Base",
+    "key": "damage-reduction-base",
+    "x": 760,
+    "y": 280,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "damageReduction",
+    "statPerLevel": 0.5,
+    "connections": [
+      "tough-shell",
+      "skill-heal-basics"
+    ],
+    "tier": 2,
+    "icon": "damageReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_110",
+    "name": "Cast Speed Base",
+    "key": "cast-speed-base",
+    "x": 740,
+    "y": 310,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "castSpeed",
+    "statPerLevel": 0.02,
+    "connections": [
+      "tough-shell",
+      "quick-cast"
+    ],
+    "tier": 2,
+    "icon": "castSpeed",
+    "category": "Special"
+  },
+  {
+    "id": "rune_111",
+    "name": "CD Reduction Base",
+    "key": "cd-reduction-base",
+    "x": 770,
+    "y": 340,
+    "maxLevel": 5,
+    "costs": [
+      0,
+      12000,
+      35000,
+      70000,
+      120000
+    ],
+    "statBonus": "cooldownReduction",
+    "statPerLevel": 1,
+    "connections": [
+      "rapid-fire-cd",
+      "skill-heal-basics"
+    ],
+    "tier": 2,
+    "icon": "cooldownReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_112",
+    "name": "Tough Shell",
+    "key": "tough-shell",
+    "x": 760,
+    "y": 320,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "damageReduction",
+    "statPerLevel": 1,
+    "connections": [
+      "hardened-shell",
+      "aoe-expansion"
+    ],
+    "tier": 3,
+    "icon": "damageReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_113",
+    "name": "Quick Cast",
+    "key": "quick-cast",
+    "x": 730,
+    "y": 360,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "castSpeed",
+    "statPerLevel": 0.03,
+    "connections": [
+      "instant-cast",
+      "aoe-expansion",
+      "projectile-speed"
+    ],
+    "tier": 3,
+    "icon": "castSpeed",
+    "category": "Special"
+  },
+  {
+    "id": "rune_114",
+    "name": "Rapid Fire CD",
+    "key": "rapid-fire-cd",
+    "x": 770,
+    "y": 380,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "cooldownReduction",
+    "statPerLevel": 2,
+    "connections": [
+      "cd-mastery",
+      "aoe-expansion",
+      "projectile-speed"
+    ],
+    "tier": 3,
+    "icon": "cooldownReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_115",
+    "name": "Skill Heal Basics",
+    "key": "skill-heal-basics",
+    "x": 790,
+    "y": 400,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      25000,
+      60000,
+      120000,
+      200000,
+      350000,
+      350000,
+      350000
+    ],
+    "statBonus": "skillHeal",
+    "statPerLevel": 3,
+    "connections": [
+      "healing-power"
+    ],
+    "tier": 3,
+    "icon": "skillHeal",
+    "category": "Special"
+  },
+  {
+    "id": "rune_116",
+    "name": "Hardened Shell",
+    "key": "hardened-shell",
+    "x": 760,
+    "y": 360,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "damageReduction",
+    "statPerLevel": 1,
+    "connections": [
+      "diamond-shell",
+      "titan-shell",
+      "instant-cast"
+    ],
+    "tier": 4,
+    "icon": "damageReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_117",
+    "name": "Instant Cast",
+    "key": "instant-cast",
+    "x": 720,
+    "y": 410,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "castSpeed",
+    "statPerLevel": 0.03,
+    "connections": [
+      "time-stop",
+      "blink-cast"
+    ],
+    "tier": 4,
+    "icon": "castSpeed",
+    "category": "Special"
+  },
+  {
+    "id": "rune_118",
+    "name": "CD Mastery",
+    "key": "cd-mastery",
+    "x": 780,
+    "y": 430,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "cooldownReduction",
+    "statPerLevel": 2,
+    "connections": [
+      "cd-annihilation",
+      "cd-reduction-field"
+    ],
+    "tier": 4,
+    "icon": "cooldownReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_119",
+    "name": "Healing Power",
+    "key": "healing-power",
+    "x": 800,
+    "y": 450,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "skillHeal",
+    "statPerLevel": 3,
+    "connections": [
+      "divine-heal",
+      "healing-mastery"
+    ],
+    "tier": 4,
+    "icon": "skillHeal",
+    "category": "Special"
+  },
+  {
+    "id": "rune_120",
+    "name": "AoE Expansion",
+    "key": "aoe-expansion",
+    "x": 750,
+    "y": 470,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "areaOfEffect",
+    "statPerLevel": 3,
+    "connections": [
+      "expanded-aoe",
+      "aoe-damage-boost"
+    ],
+    "tier": 4,
+    "icon": "areaOfEffect",
+    "category": "Special"
+  },
+  {
+    "id": "rune_121",
+    "name": "Diamond Shell",
+    "key": "diamond-shell",
+    "x": 750,
+    "y": 420,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "damageReduction",
+    "statPerLevel": 1,
+    "connections": [
+      "barrier-shell",
+      "time-stop"
+    ],
+    "tier": 5,
+    "icon": "damageReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_122",
+    "name": "Time Stop",
+    "key": "time-stop",
+    "x": 710,
+    "y": 470,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "castSpeed",
+    "statPerLevel": 0.03,
+    "connections": [
+      "duration-extension",
+      "overdrive",
+      "permanent-haste"
+    ],
+    "tier": 5,
+    "icon": "castSpeed",
+    "category": "Special"
+  },
+  {
+    "id": "rune_123",
+    "name": "CD Annihilation",
+    "key": "cd-annihilation",
+    "x": 790,
+    "y": 490,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "cooldownReduction",
+    "statPerLevel": 2,
+    "connections": [
+      "duration-extension",
+      "eternal-cd",
+      "ultimate-cdr"
+    ],
+    "tier": 5,
+    "icon": "cooldownReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_124",
+    "name": "Divine Heal",
+    "key": "divine-heal",
+    "x": 810,
+    "y": 510,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "skillHeal",
+    "statPerLevel": 3,
+    "connections": [
+      "mending-power",
+      "ultimate-heal"
+    ],
+    "tier": 5,
+    "icon": "skillHeal",
+    "category": "Special"
+  },
+  {
+    "id": "rune_125",
+    "name": "Expanded AoE",
+    "key": "expanded-aoe",
+    "x": 740,
+    "y": 530,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "areaOfEffect",
+    "statPerLevel": 3,
+    "connections": [
+      "destructive-aoe",
+      "gigantic-aoe"
+    ],
+    "tier": 5,
+    "icon": "areaOfEffect",
+    "category": "Special"
+  },
+  {
+    "id": "rune_126",
+    "name": "AoE Damage Boost",
+    "key": "aoe-damage-boost",
+    "x": 760,
+    "y": 500,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "aoeDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "destructive-aoe",
+      "mending-power"
+    ],
+    "tier": 4,
+    "icon": "aoeDamage",
+    "category": "Special"
+  },
+  {
+    "id": "rune_127",
+    "name": "Duration Extension",
+    "key": "duration-extension",
+    "x": 720,
+    "y": 565,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "duration",
+    "statPerLevel": 3,
+    "connections": [
+      "cooldown-synergy",
+      "overdrive",
+      "ultimate-duration"
+    ],
+    "tier": 5,
+    "icon": "duration",
+    "category": "Special"
+  },
+  {
+    "id": "rune_128",
+    "name": "Destructive AoE",
+    "key": "destructive-aoe",
+    "x": 760,
+    "y": 570,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "aoeDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "ultimate-guardian",
+      "aoe-destruction"
+    ],
+    "tier": 5,
+    "icon": "aoeDamage",
+    "category": "Special"
+  },
+  {
+    "id": "rune_129",
+    "name": "Mending Power",
+    "key": "mending-power",
+    "x": 800,
+    "y": 560,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "skillHeal",
+    "statPerLevel": 3,
+    "connections": [
+      "ultimate-guardian",
+      "eternal-cd"
+    ],
+    "tier": 5,
+    "icon": "skillHeal",
+    "category": "Special"
+  },
+  {
+    "id": "rune_130",
+    "name": "Projectile Speed",
+    "key": "projectile-speed",
+    "x": 680,
+    "y": 440,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "projectileDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "piercing-power"
+    ],
+    "tier": 4,
+    "icon": "projectileDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_131",
+    "name": "Piercing Power",
+    "key": "piercing-power",
+    "x": 650,
+    "y": 510,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "projectileDamage",
+    "statPerLevel": 4,
+    "connections": [
+      "cooldown-synergy"
+    ],
+    "tier": 5,
+    "icon": "projectileDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_132",
+    "name": "Cooldown Synergy",
+    "key": "cooldown-synergy",
+    "x": 670,
+    "y": 540,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "cooldownReduction",
+    "statPerLevel": 2,
+    "connections": [],
+    "tier": 5,
+    "icon": "cooldownReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_133",
+    "name": "Ultimate Guardian",
+    "key": "ultimate-guardian",
+    "x": 700,
+    "y": 620,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "damageReduction",
+    "statPerLevel": 1,
+    "connections": [],
+    "tier": 5,
+    "icon": "damageReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_134",
+    "name": "Overdrive",
+    "key": "overdrive",
+    "x": 790,
+    "y": 640,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "castSpeed",
+    "statPerLevel": 0.03,
+    "connections": [],
+    "tier": 5,
+    "icon": "castSpeed",
+    "category": "Special"
+  },
+  {
+    "id": "rune_135",
+    "name": "Eternal CD",
+    "key": "eternal-cd",
+    "x": 830,
+    "y": 610,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "cooldownReduction",
+    "statPerLevel": 2,
+    "connections": [],
+    "tier": 5,
+    "icon": "cooldownReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_136",
+    "name": "Iron Skin",
+    "key": "iron-skin",
+    "x": 500,
+    "y": 100,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "armor",
+    "statPerLevel": 5,
+    "connections": [],
+    "tier": 4,
+    "icon": "armor",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_137",
+    "name": "Titan HP",
+    "key": "titan-hp",
+    "x": 480,
+    "y": 130,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000,
+      900000,
+      900000
+    ],
+    "statBonus": "maxHp",
+    "statPerLevel": 15,
+    "connections": [],
+    "tier": 4,
+    "icon": "maxHp",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_138",
+    "name": "Regeneration Aura",
+    "key": "regeneration-aura",
+    "x": 500,
+    "y": 150,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "hpRegen",
+    "statPerLevel": 2,
+    "connections": [],
+    "tier": 4,
+    "icon": "hpRegen",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_139",
+    "name": "Blood Shield",
+    "key": "blood-shield",
+    "x": 520,
+    "y": 175,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      50000,
+      120000,
+      250000,
+      400000,
+      600000,
+      900000,
+      900000
+    ],
+    "statBonus": "hpLeech",
+    "statPerLevel": 1,
+    "connections": [],
+    "tier": 4,
+    "icon": "hpLeech",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_140",
+    "name": "Mithril Armor",
+    "key": "mithril-armor",
+    "x": 320,
+    "y": 85,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "armor",
+    "statPerLevel": 5,
+    "connections": [],
+    "tier": 5,
+    "icon": "armor",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_141",
+    "name": "Endless Vitality",
+    "key": "endless-vitality",
+    "x": 310,
+    "y": 115,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "maxHp",
+    "statPerLevel": 15,
+    "connections": [],
+    "tier": 5,
+    "icon": "maxHp",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_142",
+    "name": "Regeneration Well",
+    "key": "regeneration-well",
+    "x": 330,
+    "y": 145,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "hpRegen",
+    "statPerLevel": 2,
+    "connections": [],
+    "tier": 5,
+    "icon": "hpRegen",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_143",
+    "name": "Block Expert",
+    "key": "block-expert",
+    "x": 350,
+    "y": 195,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "blockChance",
+    "statPerLevel": 1.5,
+    "connections": [],
+    "tier": 5,
+    "icon": "blockChance",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_144",
+    "name": "Leech Expert",
+    "key": "leech-expert",
+    "x": 340,
+    "y": 220,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "hpLeech",
+    "statPerLevel": 1,
+    "connections": [],
+    "tier": 5,
+    "icon": "hpLeech",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_145",
+    "name": "HP Harvest",
+    "key": "hp-harvest",
+    "x": 380,
+    "y": 170,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "hpPerKill",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "hpPerKill",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_146",
+    "name": "Coup de Grâce",
+    "key": "coup-de-gr-ce",
+    "x": 330,
+    "y": 290,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "critDamage",
+    "statPerLevel": 5,
+    "connections": [],
+    "tier": 5,
+    "icon": "critDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_147",
+    "name": "Sure Shot",
+    "key": "sure-shot",
+    "x": 340,
+    "y": 260,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "critChance",
+    "statPerLevel": 1.5,
+    "connections": [],
+    "tier": 5,
+    "icon": "critChance",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_148",
+    "name": "Fatal Strike",
+    "key": "fatal-strike",
+    "x": 350,
+    "y": 315,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "attackDamage",
+    "statPerLevel": 3,
+    "connections": [
+      "ghost-blade"
+    ],
+    "tier": 5,
+    "icon": "attackDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_149",
+    "name": "Rending Blow",
+    "key": "rending-blow",
+    "x": 370,
+    "y": 345,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "physicalDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "physicalDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_150",
+    "name": "Lightning Reflexes",
+    "key": "lightning-reflexes",
+    "x": 390,
+    "y": 250,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "attackSpeed",
+    "statPerLevel": 0.03,
+    "connections": [],
+    "tier": 5,
+    "icon": "attackSpeed",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_151",
+    "name": "Precision Aim",
+    "key": "precision-aim",
+    "x": 310,
+    "y": 350,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "projectileDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "projectileDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_152",
+    "name": "Fire Amplifier",
+    "key": "fire-amplifier",
+    "x": 1700,
+    "y": 85,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "fireDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "fireDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_153",
+    "name": "Cold Amplifier",
+    "key": "cold-amplifier",
+    "x": 1750,
+    "y": 160,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "coldDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "coldDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_154",
+    "name": "Lightning Rod",
+    "key": "lightning-rod",
+    "x": 1750,
+    "y": 245,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "lightningDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "lightningDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_155",
+    "name": "Elemental Shield",
+    "key": "elemental-shield",
+    "x": 1600,
+    "y": 270,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "elementalResistance",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "elementalResistance",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_156",
+    "name": "Inferno Core",
+    "key": "inferno-core",
+    "x": 2300,
+    "y": 90,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "fireDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "fireDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_157",
+    "name": "Frost Core",
+    "key": "frost-core",
+    "x": 2400,
+    "y": 195,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "coldDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "coldDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_158",
+    "name": "Storm Core",
+    "key": "storm-core",
+    "x": 2350,
+    "y": 260,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "lightningDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "lightningDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_159",
+    "name": "Elemental Harmony",
+    "key": "elemental-harmony",
+    "x": 2600,
+    "y": 195,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "elementalResistance",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "elementalResistance",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_160",
+    "name": "Greed",
+    "key": "greed",
+    "x": 1750,
+    "y": 260,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "goldFind",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "goldFind",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_161",
+    "name": "Lore Master",
+    "key": "lore-master",
+    "x": 1750,
+    "y": 285,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "xpBonus",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "xpBonus",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_162",
+    "name": "Endless Energy",
+    "key": "endless-energy",
+    "x": 1700,
+    "y": 315,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "energyRegen",
+    "statPerLevel": 0.3,
+    "connections": [
+      "mana-spring"
+    ],
+    "tier": 5,
+    "icon": "energyRegen",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_163",
+    "name": "Energy Capsule",
+    "key": "energy-capsule",
+    "x": 1680,
+    "y": 345,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "energyMax",
+    "statPerLevel": 8,
+    "connections": [],
+    "tier": 5,
+    "icon": "energyMax",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_164",
+    "name": "Zephyr",
+    "key": "zephyr",
+    "x": 1750,
+    "y": 375,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "moveSpeed",
+    "statPerLevel": 8,
+    "connections": [],
+    "tier": 5,
+    "icon": "moveSpeed",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_165",
+    "name": "Avarice Mastery",
+    "key": "avarice-mastery",
+    "x": 2400,
+    "y": 260,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "goldFind",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "goldFind",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_166",
+    "name": "Wisdom Mastery",
+    "key": "wisdom-mastery",
+    "x": 2500,
+    "y": 290,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "xpBonus",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "xpBonus",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_167",
+    "name": "Energy Mastery",
+    "key": "energy-mastery",
+    "x": 2450,
+    "y": 315,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "energyRegen",
+    "statPerLevel": 0.3,
+    "connections": [],
+    "tier": 5,
+    "icon": "energyRegen",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_168",
+    "name": "Speed Demon",
+    "key": "speed-demon",
+    "x": 1800,
+    "y": 240,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "moveSpeed",
+    "statPerLevel": 8,
+    "connections": [],
+    "tier": 5,
+    "icon": "moveSpeed",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_169",
+    "name": "Titan Shell",
+    "key": "titan-shell",
+    "x": 640,
+    "y": 440,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "damageReduction",
+    "statPerLevel": 1,
+    "connections": [],
+    "tier": 5,
+    "icon": "damageReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_170",
+    "name": "Blink Cast",
+    "key": "blink-cast",
+    "x": 690,
+    "y": 490,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "castSpeed",
+    "statPerLevel": 0.03,
+    "connections": [],
+    "tier": 5,
+    "icon": "castSpeed",
+    "category": "Special"
+  },
+  {
+    "id": "rune_171",
+    "name": "CD Reduction Field",
+    "key": "cd-reduction-field",
+    "x": 850,
+    "y": 490,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "cooldownReduction",
+    "statPerLevel": 2,
+    "connections": [],
+    "tier": 5,
+    "icon": "cooldownReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_172",
+    "name": "Healing Mastery",
+    "key": "healing-mastery",
+    "x": 880,
+    "y": 510,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "skillHeal",
+    "statPerLevel": 3,
+    "connections": [
+      "mending-wave"
+    ],
+    "tier": 5,
+    "icon": "skillHeal",
+    "category": "Special"
+  },
+  {
+    "id": "rune_173",
+    "name": "Gigantic AoE",
+    "key": "gigantic-aoe",
+    "x": 670,
+    "y": 590,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "areaOfEffect",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "areaOfEffect",
+    "category": "Special"
+  },
+  {
+    "id": "rune_174",
+    "name": "AoE Destruction",
+    "key": "aoe-destruction",
+    "x": 820,
+    "y": 590,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "aoeDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "aoeDamage",
+    "category": "Special"
+  },
+  {
+    "id": "rune_175",
+    "name": "Ultimate Duration",
+    "key": "ultimate-duration",
+    "x": 730,
+    "y": 650,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "duration",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "duration",
+    "category": "Special"
+  },
+  {
+    "id": "rune_176",
+    "name": "Ultimate CDR",
+    "key": "ultimate-cdr",
+    "x": 860,
+    "y": 650,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "cooldownReduction",
+    "statPerLevel": 2,
+    "connections": [],
+    "tier": 5,
+    "icon": "cooldownReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_177",
+    "name": "Ultimate Heal",
+    "key": "ultimate-heal",
+    "x": 780,
+    "y": 680,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "skillHeal",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "skillHeal",
+    "category": "Special"
+  },
+  {
+    "id": "rune_178",
+    "name": "Mending Wave",
+    "key": "mending-wave",
+    "x": 820,
+    "y": 700,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "skillHeal",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "skillHeal",
+    "category": "Special"
+  },
+  {
+    "id": "rune_179",
+    "name": "Barrier Shell",
+    "key": "barrier-shell",
+    "x": 700,
+    "y": 680,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "damageReduction",
+    "statPerLevel": 1,
+    "connections": [],
+    "tier": 5,
+    "icon": "damageReduction",
+    "category": "Special"
+  },
+  {
+    "id": "rune_180",
+    "name": "Shadow Strike",
+    "key": "shadow-strike",
+    "x": 280,
+    "y": 310,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "physicalDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "physicalDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_181",
+    "name": "Ghost Blade",
+    "key": "ghost-blade",
+    "x": 290,
+    "y": 280,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "attackDamage",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "attackDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_182",
+    "name": "Wind Walk",
+    "key": "wind-walk",
+    "x": 290,
+    "y": 245,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "moveSpeed",
+    "statPerLevel": 8,
+    "connections": [],
+    "tier": 5,
+    "icon": "moveSpeed",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_183",
+    "name": "Sacred Barrier",
+    "key": "sacred-barrier",
+    "x": 280,
+    "y": 215,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "blockChance",
+    "statPerLevel": 1.5,
+    "connections": [],
+    "tier": 5,
+    "icon": "blockChance",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_184",
+    "name": "Nature Blessing",
+    "key": "nature-blessing",
+    "x": 280,
+    "y": 185,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "hpRegen",
+    "statPerLevel": 2,
+    "connections": [],
+    "tier": 5,
+    "icon": "hpRegen",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_185",
+    "name": "Stone Shell",
+    "key": "stone-shell",
+    "x": 280,
+    "y": 155,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "armor",
+    "statPerLevel": 5,
+    "connections": [],
+    "tier": 5,
+    "icon": "armor",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_186",
+    "name": "Thunderclap",
+    "key": "thunderclap",
+    "x": 2700,
+    "y": 155,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "lightningDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "lightningDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_187",
+    "name": "Magma Core",
+    "key": "magma-core",
+    "x": 2700,
+    "y": 230,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "fireDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "fireDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_188",
+    "name": "Void Energy",
+    "key": "void-energy",
+    "x": 2700,
+    "y": 280,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "energyMax",
+    "statPerLevel": 8,
+    "connections": [],
+    "tier": 5,
+    "icon": "energyMax",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_189",
+    "name": "Permanent Haste",
+    "key": "permanent-haste",
+    "x": 2600,
+    "y": 310,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "castSpeed",
+    "statPerLevel": 0.03,
+    "connections": [],
+    "tier": 5,
+    "icon": "castSpeed",
+    "category": "Special"
+  },
+  {
+    "id": "rune_190",
+    "name": "Berserker Rage",
+    "key": "berserker-rage",
+    "x": 450,
+    "y": 365,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "attackDamage",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "attackDamage",
+    "category": "Offense"
+  },
+  {
+    "id": "rune_191",
+    "name": "Frost Shield",
+    "key": "frost-shield",
+    "x": 1850,
+    "y": 185,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "coldDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "coldDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_192",
+    "name": "Lightning Barrier",
+    "key": "lightning-barrier",
+    "x": 1900,
+    "y": 245,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "lightningDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "lightningDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_193",
+    "name": "Soul Reaper",
+    "key": "soul-reaper",
+    "x": 480,
+    "y": 205,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "hpLeech",
+    "statPerLevel": 1,
+    "connections": [],
+    "tier": 5,
+    "icon": "hpLeech",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_194",
+    "name": "Crystal Armor",
+    "key": "crystal-armor",
+    "x": 2000,
+    "y": 90,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "armor",
+    "statPerLevel": 5,
+    "connections": [],
+    "tier": 5,
+    "icon": "armor",
+    "category": "Defense"
+  },
+  {
+    "id": "rune_195",
+    "name": "Mana Spring",
+    "key": "mana-spring",
+    "x": 1850,
+    "y": 315,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "energyRegen",
+    "statPerLevel": 0.3,
+    "connections": [],
+    "tier": 5,
+    "icon": "energyRegen",
+    "category": "Utility"
+  },
+  {
+    "id": "rune_196",
+    "name": "Solar Flare",
+    "key": "solar-flare",
+    "x": 2100,
+    "y": 85,
+    "maxLevel": 10,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "fireDamage",
+    "statPerLevel": 4,
+    "connections": [],
+    "tier": 5,
+    "icon": "fireDamage",
+    "category": "Elemental"
+  },
+  {
+    "id": "rune_197",
+    "name": "Eternal Flame",
+    "key": "eternal-flame",
+    "x": 2050,
+    "y": 110,
+    "maxLevel": 8,
+    "costs": [
+      0,
+      100000,
+      250000,
+      500000,
+      800000,
+      1200000,
+      2000000,
+      2000000
+    ],
+    "statBonus": "duration",
+    "statPerLevel": 3,
+    "connections": [],
+    "tier": 5,
+    "icon": "duration",
+    "category": "Special"
+  }
+]
