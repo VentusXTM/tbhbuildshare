@@ -21,13 +21,6 @@ class TBHBuildPlanner {
       level: 100,
       skillPoints: {},   // { skillId: level }
       equippedSkills: [], // skill IDs
-      gear: {
-        weapon: null,
-        offhand: null,
-        armor: null,
-        accessory: null
-      },
-      pet: null,
       notes: '',
       createdAt: Date.now(),
       updatedAt: Date.now()
@@ -47,8 +40,7 @@ class TBHBuildPlanner {
     this.renderBuildInfo();
     this.renderSkillTree();
     this.renderActiveSkills();
-    this.renderPets();
-    this.renderGear();
+
     this.renderStats();
     this.renderActions();
     this.renderSavedBuilds();
@@ -205,59 +197,7 @@ class TBHBuildPlanner {
     `;
   }
 
-  // ─── Pets ─────────────────────────────────────────────────
-  renderPets() {
-    const el = document.getElementById('pet-selector');
-    if (!el) return;
 
-    el.innerHTML = TBH.PETS.map(p => `
-      <div class="pet-card ${this.build.pet === p.id ? 'selected' : ''}" data-pet="${p.id}">
-        <img src="${p.icon}" alt="${p.name}" loading="lazy"
-             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 40 40%22><rect width=%2240%22 height=%2240%22 fill=%22%23161e28%22/><text x=%2220%22 y=%2224%22 text-anchor=%22middle%22 font-size=%2216%22 fill=%22%238899aa%22>${p.name[0]}</text></svg>'">
-        <div class="pet-name">${p.name}</div>
-        <div class="pet-bonus">${p.bonuses[0]}</div>
-      </div>
-    `).join('');
-  }
-
-  // ─── Gear ─────────────────────────────────────────────────
-  renderGear() {
-    const el = document.getElementById('gear-grid');
-    if (!el) return;
-
-    const hero = TBH.HEROES[this.build.hero];
-    const rarities = TBH.RARITIES;
-
-    const gearOptions = (slot, type) => {
-      const current = this.build.gear[slot];
-      return `<select data-gear-slot="${slot}">
-        <option value="">— Empty —</option>
-        ${rarities.map(r => {
-          const val = `${r}/${type}`;
-          return `<option value="${val}" ${current === val ? 'selected' : ''}>${r} ${type}</option>`;
-        }).join('')}
-      </select>`;
-    };
-
-    el.innerHTML = `
-      <div class="gear-slot">
-        <label>Weapon (${hero.mainWeapon})</label>
-        ${gearOptions('weapon', hero.mainWeapon)}
-      </div>
-      <div class="gear-slot">
-        <label>Off-hand (${hero.offHand})</label>
-        ${gearOptions('offhand', hero.offHand)}
-      </div>
-      <div class="gear-slot">
-        <label>Armor</label>
-        ${gearOptions('armor', 'Armor')}
-      </div>
-      <div class="gear-slot">
-        <label>Accessory</label>
-        ${gearOptions('accessory', 'Accessory')}
-      </div>
-    `;
-  }
 
   // ─── Stats ────────────────────────────────────────────────
   renderStats() {
@@ -345,7 +285,6 @@ class TBHBuildPlanner {
           </div>
           <div class="build-tags">
             ${elements.map(e => `<span class="element-${e}">${e}</span>`).join('')}
-            ${b.pet ? `<span>🐾 ${TBH.PETS.find(p => p.id === b.pet)?.name || b.pet}</span>` : ''}
           </div>
           <div class="build-stats-line">
             <span>⚔ ${skillNames.slice(0, 3).join(', ') || 'No skills'}</span>
@@ -371,22 +310,11 @@ class TBHBuildPlanner {
           this.build.hero = hero;
           this.build.skillPoints = {};
           this.build.equippedSkills = [];
-          this.build.gear = { weapon: null, offhand: null, armor: null, accessory: null };
-          this.build.pet = null;
+
           this.build.updatedAt = Date.now();
           this.saveToLocal();
           this.render();
         }
-        return;
-      }
-
-      // Pet selector
-      const petCard = e.target.closest('.pet-card');
-      if (petCard) {
-        const pet = petCard.dataset.pet;
-        this.build.pet = this.build.pet === pet ? null : pet;
-        this.build.updatedAt = Date.now();
-        this.renderPets();
         return;
       }
 
@@ -524,16 +452,6 @@ class TBHBuildPlanner {
         this.build.updatedAt = Date.now();
         this.saveToLocal();
         this.render();
-        return;
-      }
-
-      // Gear select
-      if (e.target.closest('[data-gear-slot]')) {
-        const sel = e.target.closest('[data-gear-slot]');
-        const slot = sel.dataset.gearSlot;
-        this.build.gear[slot] = sel.value || null;
-        this.build.updatedAt = Date.now();
-        this.saveToLocal();
         return;
       }
 
