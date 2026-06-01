@@ -832,3 +832,24 @@ a:hover { text-decoration: underline; }
   .actions { flex-direction: column; }
   .actions .btn { width: 100%; justify-content: center; }
 }
+
+/* ─── Passive Skills Panel ────────────────────────────── */
+.passive-skill-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  margin-bottom: 2px;
+  border-radius: var(--radius-sm);
+}
+.passive-skill-item:hover {
+  background: rgba(74, 158, 255, 0.04);
+}
+.passive-skill-item .level-badge {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg-primary);
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}

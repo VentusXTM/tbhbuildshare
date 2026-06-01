@@ -548,12 +548,12 @@ TBH.ACTIVE_SKILLS = [
 
 // ─── Run Slots per Hero ─────────────────────────────────────
 TBH.SKILL_SLOTS = {
-  knight:   6,
-  ranger:   6,
-  sorcerer: 6,
-  priest:   6,
-  hunter:   6,
-  slayer:   6
+  knight:   2,
+  ranger:   2,
+  sorcerer: 2,
+  priest:   2,
+  hunter:   2,
+  slayer:   2
 };
 
 // ─── Helper: all active skills for a hero ───────────────────

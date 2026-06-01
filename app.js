@@ -202,6 +202,7 @@ class TBHBuildPlanner {
     this.renderBuildInfo();
     this.renderSkillTree();
     this.renderActiveSkills();
+    this.renderPassiveSkills();
 
     this.renderStats();
     this.renderActions();
@@ -322,19 +323,24 @@ class TBHBuildPlanner {
     const el = document.getElementById('active-skills');
     if (!el) return;
 
-    const heroSkills = TBH.getSkillsForHero(this.build.hero);
-    const slots = TBH.SKILL_SLOTS[this.build.hero] || 4;
+    const slots = TBH.SKILL_SLOTS[this.build.hero] || 2;
+    if (this.build.equippedSkills.length > slots) {
+      this.build.equippedSkills = this.build.equippedSkills.slice(0, slots);
+    }
 
-    if (heroSkills.length === 0) {
-      el.innerHTML = '<div class="no-skills-msg">No active skills for this hero.</div>';
+    const heroSkills = TBH.getSkillsForHero(this.build.hero);
+    const investedActives = heroSkills.filter(s => (this.build.skillPoints[s.id] || 0) > 0);
+
+    if (investedActives.length === 0) {
+      el.innerHTML = '<div class="no-skills-msg" style="color:var(--text-muted);font-size:13px">No active skills invested — allocate points in the skill tree above.</div>';
       return;
     }
 
     el.innerHTML = `
       <div style="margin-bottom:8px;font-size:12px;color:var(--text-muted)">
-        Equip up to ${slots} active skills · ${this.build.equippedSkills.length}/${slots} used
+        Choose up to ${slots} equipped active skills · ${this.build.equippedSkills.length}/${slots} selected
       </div>
-      ${heroSkills.map(s => {
+      ${investedActives.map(s => {
         const equipped = this.build.equippedSkills.includes(s.id);
         const canEquip = this.build.equippedSkills.length < slots || equipped;
         const level = this.build.skillPoints[s.id] || 0;
@@ -350,13 +356,53 @@ class TBHBuildPlanner {
             </div>
             <div class="skill-info">
               <span class="skill-name">${s.name}</span>
-              <span class="skill-meta">${s.activation} · ${s.element} · Lv.${level}</span>
+              <span class="skill-meta">Lv.${level} · ${s.activation} · ${s.element}</span>
             </div>
-            <span class="slot-indicator">${s.element}</span>
+            <span class="slot-indicator">${equipped ? 'Equipped' : 'Available'}</span>
           </div>
         `;
       }).join('')}
     `;
+  }
+
+  // ─── Passive Skills Panel ─────────────────────────────────
+  renderPassiveSkills() {
+    const el = document.getElementById('passive-skills');
+    if (!el) return;
+
+    const hero = TBH.HEROES[this.build.hero];
+    if (!hero) return;
+
+    const investedPassives = [];
+    for (const tier of hero.tiers) {
+      for (const skill of tier.skills) {
+        if (skill.type === 'passive') {
+          const level = this.build.skillPoints[skill.id] || 0;
+          if (level > 0) {
+            investedPassives.push({ ...skill, level });
+          }
+        }
+      }
+    }
+
+    if (investedPassives.length === 0) {
+      el.innerHTML = '<div class="no-skills-msg" style="color:var(--text-muted);font-size:13px">No passive skills invested.</div>';
+      return;
+    }
+
+    el.innerHTML = investedPassives.map(s => `
+      <div class="passive-skill-item">
+        <div style="width:24px;height:24px;flex-shrink:0;border-radius:4px;overflow:hidden;background:var(--bg-primary)">
+          <img src="https://www.taskbarhero.wiki/game/skills/${s.icon}.png" width="24" height="24" alt="" loading="lazy"
+               onerror="this.style.display='none'">
+        </div>
+        <div class="skill-info">
+          <span class="skill-name">${s.name}</span>
+          <span class="skill-meta">${s.statBonus ? s.statBonus : 'Passive'}</span>
+        </div>
+        <span class="level-badge">Lv.${s.level}/${s.maxLevel}</span>
+      </div>
+    `).join('');
   }
 
 
@@ -508,7 +554,11 @@ class TBHBuildPlanner {
         const current = this.build.skillPoints[skillId] || 0;
         if (current > 0) {
           this.build.skillPoints[skillId] = current - 1;
-          if (this.build.skillPoints[skillId] <= 0) delete this.build.skillPoints[skillId];
+          if (this.build.skillPoints[skillId] <= 0) {
+            delete this.build.skillPoints[skillId];
+            // Auto-unequip if it was an equipped active skill
+            this.build.equippedSkills = this.build.equippedSkills.filter(id => id !== skillId);
+          }
           this.build.updatedAt = Date.now();
           this.saveToLocal();
           this.render();
@@ -671,6 +721,18 @@ class TBHBuildPlanner {
       if (remaining <= 0) break;
     }
 
+    // Auto-equip first 2 active skills that have points
+    this.build.equippedSkills = [];
+    for (const tier of hero.tiers) {
+      for (const skill of tier.skills) {
+        if (skill.type === 'active' && (this.build.skillPoints[skill.id] || 0) > 0) {
+          if (this.build.equippedSkills.length < 2) {
+            this.build.equippedSkills.push(skill.id);
+          }
+        }
+      }
+    }
+
     this.build.updatedAt = Date.now();
     this.saveToLocal();
     this.render();
@@ -700,6 +762,7 @@ class TBHBuildPlanner {
       return;
     }
     this.build = { ...b };
+    this.build.equippedSkills = (this.build.equippedSkills || []).slice(0, 2);
     this.availablePoints = b.level || 100;
     this.render();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -780,6 +843,7 @@ class TBHBuildPlanner {
       }
 
       this.build = { ...this.getDefaultBuild(), ...build, id: Date.now().toString(36), updatedAt: Date.now() };
+      this.build.equippedSkills = (this.build.equippedSkills || []).slice(0, 2);
       this.availablePoints = this.build.level || 100;
       this.render();
       this.closeModal();
@@ -818,6 +882,7 @@ class TBHBuildPlanner {
           // Store in sessionStorage so we can load it
           sessionStorage.setItem('tbh_import', json);
           this.build = { ...this.getDefaultBuild(), ...build };
+          this.build.equippedSkills = (this.build.equippedSkills || []).slice(0, 2);
           this.availablePoints = this.build.level || 100;
           // Clear hash
           history.replaceState(null, '', window.location.pathname);
@@ -834,6 +899,7 @@ class TBHBuildPlanner {
         const build = JSON.parse(stored);
         if (build.hero && build.skillPoints) {
           this.build = { ...this.getDefaultBuild(), ...build };
+          this.build.equippedSkills = (this.build.equippedSkills || []).slice(0, 2);
           this.availablePoints = this.build.level || 100;
         }
       } catch (e) {}
