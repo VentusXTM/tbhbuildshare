@@ -698,6 +698,122 @@ a:hover { text-decoration: underline; }
   border-color: var(--accent);
 }
 
+/* ─── Tab Navigation ───────────────────────────────────────── */
+.tab-bar {
+  display: flex;
+  gap: 0;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--border);
+}
+.tab-btn {
+  padding: 10px 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.tab-btn:hover {
+  color: var(--text-primary);
+}
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+/* ─── Rune Tree ─────────────────────────────────────────────── */
+.rune-tree-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.rune-tree-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.rune-tree-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.rune-total-gold {
+  font-size: 14px;
+  color: var(--gold);
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.rune-tree-container {
+  position: relative;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  min-height: 500px;
+  width: 100%;
+}
+#rune-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  cursor: grab;
+}
+#rune-canvas:active {
+  cursor: grabbing;
+}
+
+/* ─── Rune Tooltip ──────────────────────────────────────────── */
+.rune-tooltip {
+  position: absolute;
+  display: none;
+  background: #1a1f2a;
+  border: 1px solid #3a4a5a;
+  border-radius: 8px;
+  padding: 10px 14px;
+  pointer-events: none;
+  z-index: 50;
+  min-width: 180px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+.rune-tooltip .rune-tooltip-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.rune-tooltip .rune-tooltip-level {
+  font-size: 12px;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+.rune-tooltip .rune-tooltip-stat {
+  font-size: 12px;
+  color: var(--success);
+  margin-bottom: 2px;
+}
+.rune-tooltip .rune-tooltip-total {
+  font-size: 12px;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+.rune-tooltip .rune-tooltip-cost {
+  font-size: 12px;
+  color: var(--warning);
+}
+
 /* ─── Responsive ──────────────────────────────────────────── */
 @media (max-width: 768px) {
   .panel-grid { grid-template-columns: 1fr; }
