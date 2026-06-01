@@ -9,6 +9,9 @@ class TBHBuildPlanner {
     this.availablePoints = 100;
     this.usedPoints = 0;
     this.maxLevel = 100;
+    this.runeTree = null;
+    this.runeAllocations = this.loadRuneAllocations();
+    this.activeTab = 'skills';
     this.init();
   }
 
@@ -32,6 +35,165 @@ class TBHBuildPlanner {
     this.checkHash();
     this.render();
     this.bindEvents();
+    this.initTabs();
+    this.initRuneTree();
+  }
+
+  // ─── Tab Navigation ───────────────────────────────────────
+  initTabs() {
+    // Read current tab from URL hash
+    const hash = window.location.hash;
+    let activeTab = 'skills';
+    if (hash && hash.includes('tab=')) {
+      const tabMatch = hash.match(/tab=(skills|runes)/);
+      if (tabMatch) activeTab = tabMatch[1];
+    }
+    this.activeTab = activeTab;
+
+    // Set active classes
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      const tab = btn.dataset.tab;
+      btn.classList.toggle('active', tab === activeTab);
+    });
+    document.querySelectorAll('.tab-content').forEach(el => {
+      const tabId = el.id.replace('tab-', '');
+      el.classList.toggle('active', tabId === activeTab);
+    });
+
+    // Click handler
+    document.getElementById('tab-bar')?.addEventListener('click', (e) => {
+      const btn = e.target.closest('.tab-btn');
+      if (!btn) return;
+      const tab = btn.dataset.tab;
+      if (tab === this.activeTab) return;
+      this.activeTab = tab;
+
+      // Update classes
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+      document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.toggle('active', el.id === 'tab-' + tab);
+      });
+
+      // Update hash
+      const newHash = 'tab=' + tab;
+      history.replaceState(null, '', '#' + newHash);
+
+      // Resize canvas when switching to rune tab
+      if (tab === 'runes' && this.runeTree) {
+        // Force resize via the ResizeObserver
+        this.runeTree.dirty = true;
+      }
+    });
+  }
+
+  // ─── Rune Tree Init ───────────────────────────────────────
+  initRuneTree() {
+    const canvas = document.getElementById('rune-canvas');
+    const tooltip = document.getElementById('rune-tooltip');
+    if (!canvas || !tooltip) return;
+
+    this.runeTree = new RuneTree(canvas, tooltip, (key, level, delta) => {
+      if (key === '__reset__') {
+        this.runeAllocations = {};
+      } else {
+        this.runeAllocations[key] = level;
+      }
+      this.saveRuneAllocations();
+      this.updateRuneShareLink();
+      this.updateRuneTotalGold();
+    });
+
+    // Reset button
+    document.getElementById('rune-reset')?.addEventListener('click', () => {
+      if (this.runeTree) {
+        this.runeTree.reset();
+        // The reset callback handles clearing allocations
+      }
+    });
+
+    // Load data
+    Promise.all([
+      fetch('data/rune_tree.json').then(r => r.json()),
+      fetch('data/runes.json').then(r => r.json())
+    ]).then(([treeData, runeData]) => {
+      // Merge rune details into tree nodes
+      const merged = treeData.map(node => {
+        const rune = runeData.find(r => r.id === node.id);
+        return {
+          ...node,
+          statBonus: rune?.statBonus,
+          statPerLevel: rune?.statPerLevel,
+          costs: rune?.costs
+        };
+      });
+      this.runeTree.load(merged, this.runeAllocations);
+      this.runeTree.render();
+      this.updateRuneTotalGold();
+    }).catch(err => {
+      console.error('Failed to load rune data:', err);
+      const container = document.getElementById('rune-tree-container');
+      if (container) container.innerHTML = '<div class="empty-state"><h3>Failed to load rune data</h3><button class="btn btn-primary" onclick="planner.initRuneTree()">Retry</button></div>';
+    });
+  }
+
+  // ─── Rune Persistence ─────────────────────────────────────
+  loadRuneAllocations() {
+    try {
+      const data = localStorage.getItem('tbh_rune_allocations');
+      return data ? JSON.parse(data) : {};
+    } catch { return {}; }
+  }
+
+  saveRuneAllocations() {
+    try {
+      localStorage.setItem('tbh_rune_allocations', JSON.stringify(this.runeAllocations));
+    } catch {}
+  }
+
+  updateRuneTotalGold() {
+    const total = this._calcRuneTotalGold();
+    const el = document.getElementById('rune-total-gold');
+    if (el) el.textContent = 'Total: ' + this._formatGold(total);
+  }
+
+  _calcRuneTotalGold() {
+    if (!this.runeTree || !this.runeTree.data) return 0;
+    let total = 0;
+    for (const node of this.runeTree.data) {
+      const level = this.runeAllocations[node.key] || 0;
+      if (level > 0 && node.costs) {
+        for (let i = 0; i < level; i++) {
+          total += node.costs[i] || 0;
+        }
+      }
+    }
+    return total;
+  }
+
+  _formatGold(copper) {
+    if (copper >= 10000) {
+      const g = (copper / 10000).toFixed(0);
+      return g.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' Gold';
+    }
+    return copper + ' copper';
+  }
+
+  updateRuneShareLink() {
+    const json = JSON.stringify(this.runeAllocations);
+    const encoded = btoa(unescape(encodeURIComponent(json)));
+    const currentHash = window.location.hash;
+    const runePart = 'rune=' + encoded;
+
+    // Preserve existing #build= hash when merging
+    let newHash = runePart;
+    if (currentHash && currentHash.includes('build=')) {
+      const buildMatch = currentHash.match(/#build=[^&]+/);
+      if (buildMatch) {
+        newHash = buildMatch[0].substring(1) + '&' + runePart;
+      }
+    }
+
+    history.replaceState(null, '', '#' + newHash);
   }
 
   // ─── Render ───────────────────────────────────────────────
@@ -630,6 +792,23 @@ class TBHBuildPlanner {
   // ─── Hash-based sharing ───────────────────────────────────
   checkHash() {
     const hash = window.location.hash;
+
+    // NEW: rune hash — process before build hash so data is captured
+    // even if build hash clearing removes it from the URL
+    if (hash && hash.includes('rune=')) {
+      try {
+        const runeEncoded = hash.split('rune=')[1].split('&')[0];
+        const json = decodeURIComponent(escape(atob(runeEncoded)));
+        const allocs = JSON.parse(json);
+        if (typeof allocs === 'object' && !Array.isArray(allocs)) {
+          this.runeAllocations = allocs;
+          this.saveRuneAllocations();
+          // Will be loaded by initRuneTree
+        }
+      } catch (e) { /* ignore invalid */ }
+    }
+
+    // Existing build hash logic
     if (hash && hash.startsWith('#build=')) {
       try {
         const encoded = hash.split('#build=')[1].split('&')[0];
