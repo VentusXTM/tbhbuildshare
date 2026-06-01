@@ -853,3 +853,34 @@ a:hover { text-decoration: underline; }
   border-radius: 10px;
   white-space: nowrap;
 }
+
+/* ─── Passive Summary ─────────────────────────────────── */
+.passive-summary {
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  margin-top: 12px;
+}
+.passive-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 4px;
+}
+.passive-summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+}
+.passive-summary-item:nth-child(odd) {
+  background: rgba(74, 158, 255, 0.04);
+}
+.ps-label {
+  color: var(--text-secondary);
+}
+.ps-value {
+  color: var(--accent);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}

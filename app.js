@@ -2,6 +2,36 @@
 // TBH Build Share — Application
 // ============================================================
 
+const STAT_LABELS = {
+  attackDamage: 'Attack Damage',
+  maxHp: 'Max HP',
+  armor: 'Armor',
+  hpRegen: 'HP Regen',
+  hpPerKill: 'HP Per Kill',
+  blockChance: 'Block Chance',
+  physicalDamage: 'Physical Damage',
+  cooldownReduction: 'Cooldown Reduction',
+  attackSpeed: 'Attack Speed',
+  elementalResistance: 'Elemental Resistance',
+  damageReduction: 'Damage Reduction',
+  critChance: 'Critical Chance',
+  critDamage: 'Critical Damage',
+  dodgeChance: 'Dodge Chance',
+  projectileDamage: 'Projectile Damage',
+  moveSpeed: 'Move Speed',
+  hpLeech: 'HP Leech',
+  aoeDamage: 'AoE Damage',
+  areaOfEffect: 'Area of Effect',
+  fireDamage: 'Fire Damage',
+  coldDamage: 'Cold Damage',
+  lightningDamage: 'Lightning Damage',
+  castSpeed: 'Cast Speed',
+  skillHeal: 'Skill Heal',
+  damageAbsorption: 'Damage Absorption',
+  hpPerHit: 'HP Per Hit',
+  duration: 'Duration'
+};
+
 class TBHBuildPlanner {
   constructor() {
     this.build = this.getDefaultBuild();
@@ -390,7 +420,7 @@ class TBHBuildPlanner {
       return;
     }
 
-    el.innerHTML = investedPassives.map(s => `
+    const passiveHtml = investedPassives.map(s => `
       <div class="passive-skill-item">
         <div style="width:24px;height:24px;flex-shrink:0;border-radius:4px;overflow:hidden;background:var(--bg-primary)">
           <img src="https://www.taskbarhero.wiki/game/skills/${s.icon}.png" width="24" height="24" alt="" loading="lazy"
@@ -398,11 +428,38 @@ class TBHBuildPlanner {
         </div>
         <div class="skill-info">
           <span class="skill-name">${s.name}</span>
-          <span class="skill-meta">${s.statBonus ? s.statBonus : 'Passive'}</span>
+          <span class="skill-meta">${STAT_LABELS[s.statBonus] || s.statBonus || 'Passive'}</span>
         </div>
         <span class="level-badge">Lv.${s.level}/${s.maxLevel}</span>
       </div>
     `).join('');
+
+    // Aggregate stat bonuses across all invested passives
+    const statsSummary = {};
+    for (const s of investedPassives) {
+      const key = s.statBonus;
+      if (key) {
+        statsSummary[key] = (statsSummary[key] || 0) + s.level;
+      }
+    }
+
+    const summaryHtml = Object.keys(statsSummary).length > 0 ? `
+      <div class="passive-summary">
+        <h4 style="margin:12px 0 6px;font-size:13px;color:var(--text-primary)">Total Passive Benefits</h4>
+        <div class="passive-summary-grid">
+          ${Object.entries(statsSummary)
+            .sort((a, b) => b[1] - a[1])
+            .map(([stat, totalLevels]) => `
+              <div class="passive-summary-item">
+                <span class="ps-label">${STAT_LABELS[stat] || stat}</span>
+                <span class="ps-value">+${totalLevels} lv</span>
+              </div>
+            `).join('')}
+        </div>
+      </div>
+    ` : '';
+
+    el.innerHTML = passiveHtml + summaryHtml;
   }
 
 
