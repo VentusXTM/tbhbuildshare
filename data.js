@@ -114,7 +114,7 @@ TBH.HEROES = {
       castSpeed: 1.00,
       cooldownReduction: 0
     },
-    bestStats: ['attackSpeed', 'critChance', 'critDamage', 'dodgeChance'],
+    bestStats: ['attackSpeed', 'critChance', 'critDamage'],
     tiers: [
       { tier: 1, pointsRequired: 0, label: 'available from start',
         skills: [
@@ -280,7 +280,7 @@ TBH.HEROES = {
       castSpeed: 1.00,
       cooldownReduction: 0
     },
-    bestStats: ['maxHp', 'armor', 'blockChance', 'damageAbsorption'],
+    bestStats: ['maxHp', 'armor'],
     tiers: [
       { tier: 1, pointsRequired: 0, label: 'available from start',
         skills: [
@@ -363,7 +363,7 @@ TBH.HEROES = {
       castSpeed: 1.00,
       cooldownReduction: 0
     },
-    bestStats: ['attackDamage', 'critChance', 'critDamage', 'fireDamage'],
+    bestStats: ['attackDamage', 'critChance', 'critDamage'],
     tiers: [
       { tier: 1, pointsRequired: 0, label: 'available from start',
         skills: [
@@ -545,32 +545,6 @@ TBH.ACTIVE_SKILLS = [
   { id: '60501', hero: 'slayer', name: 'Axe Spin',            slug: 'axe-spin',             activation: 'Cooldown',         element: 'Physical',  range: 150,  maxLevel: 5, icon: 'Skill_60501' },
   { id: '60601', hero: 'slayer', name: 'Bloodlust',           slug: 'bloodlust',            activation: 'Cooldown',         element: 'Physical',  range: 900,  maxLevel: 5, icon: 'Skill_60601' }
 ];
-
-// ─── Pets ────────────────────────────────────────────────────
-TBH.PETS = [
-  { id: 'bat',   name: 'Bat',             icon: 'https://www.taskbarhero.wiki/game/monsters/BasicBat/BasicBat_Idle_character_0.png',    bonuses: ['10% Increased Common Chest Drop Chance Multiplier', '15% Increased Exp Gain'],               unlock: 'Defeat 5,000 × Bat' },
-  { id: 'watcher', name: 'Watcher',        icon: 'https://www.taskbarhero.wiki/game/monsters/BeHolder/BeHolder_Idle_0.png',              bonuses: ['15% Increased Gold Per Kill'],                                                                unlock: 'Defeat 5,000 × Giant Fly' },
-  { id: 'burning-skeleton', name: 'Burning Skeleton', icon: 'https://www.taskbarhero.wiki/game/monsters/Skull/Skull_Idle_0.png',                    bonuses: ['10% Increased Stage Boss Chest Drop Chance Multiplier'],                                       unlock: 'Defeat 5,000 × Fire Elemental' },
-  { id: 'blue-golem', name: 'Blue Golem',    icon: 'https://www.taskbarhero.wiki/game/monsters/BlueGolem/BlueGolem_Idle_0.png',         bonuses: ['15% Increased Common Chest Drop Chance Multiplier'],                                           unlock: 'Defeat 5,000 × Hell Golem' },
-  { id: 'dark-spirit', name: 'Dark Spirit',   icon: 'https://www.taskbarhero.wiki/game/monsters/BlackSpirit/BlackSpirit_Idle_0.png',    bonuses: ['15% Increased Stage Boss Chest Drop Chance Multiplier'],                                       unlock: 'Defeat 5,000 × Ghost' },
-  { id: 'sword-pet', name: 'Sword',         icon: 'https://www.taskbarhero.wiki/game/gear/sword/SWORD_300001.png',                      bonuses: ['15% Increased Exp Gain'],                                                                     unlock: 'Supporter Pack' },
-  { id: 'butterfly', name: 'Butterfly',      icon: 'https://www.taskbarhero.wiki/game/monsters/Butterfly/Butterfly_Idle_3.png',         bonuses: ['10% Increased Gold Per Kill'],                                                                unlock: 'Supporter Pack' },
-  { id: 'dragon', name: 'Dragon',         icon: 'https://www.taskbarhero.wiki/game/monsters/DragonHatchling/DragonHatchling_Idle_character_0.png', bonuses: ['20% Increased Common Chest Drop Chance Multiplier', '15% Increased Gold Per Kill', '20% Increased Exp Gain'], unlock: 'Supporter Pack' }
-];
-
-// ─── Rarity Scale ────────────────────────────────────────────
-TBH.RARITIES = [
-  'Common', 'Uncommon', 'Rare', 'Legendary', 'Immortal',
-  'Arcana', 'Beyond', 'Celestial', 'Divine', 'Cosmic'
-];
-
-// ─── Gear Types ──────────────────────────────────────────────
-TBH.GEAR_SLOTS = ['Weapon', 'Off-hand', 'Armor', 'Accessory'];
-
-TBH.WEAPON_TYPES = ['Sword', 'Bow', 'Staff', 'Scepter', 'Crossbow', 'Axe'];
-TBH.OFFHAND_TYPES = ['Shield', 'Arrow', 'Orb', 'Tome', 'Bolt', 'Hatchet'];
-TBH.ARMOR_TYPES = ['Light', 'Medium', 'Heavy'];
-TBH.ACCESSORY_TYPES = ['Ring', 'Amulet', 'Belt', 'Boots', 'Gloves', 'Helmet', 'Shoulder'];
 
 // ─── Run Slots per Hero ─────────────────────────────────────
 TBH.SKILL_SLOTS = {
