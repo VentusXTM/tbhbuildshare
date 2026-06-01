@@ -35,12 +35,9 @@ Chain strategy: stacked-to-main
 
 ## Phase 2: Data Files
 
-- [ ] 2.1 `data/runes.json` — NEW: 197 rune definitions (id, name, key, maxLevel, costs[], statBonus, statPerLevel)
-- [ ] 2.2 `data/rune_tree.json` — NEW: 197 nodes (x, y, connections[]; same fields as runes.json for merge)
-
-## Phase 3: Rune Tree Module
-
-- [ ] 3.1 `rune-tree.js` — NEW: `RuneTree` class with Canvas renderer (197 nodes at x,y coords, edges as lines, pan/zoom via drag/wheel, click allocate/deallocate, tooltip on hover with name/level/stat/gold). API: `load()`, `render()`, `reset()`, `getAllocations()`
+- [x] 2.1 `data/runes.json` — NEW: 197 rune definitions (id, name, key, maxLevel, costs[], statBonus, statPerLevel)
+- [x] 2.2 `data/rune_tree.json` — NEW: 197 nodes (x, y, connections[]; same fields as runes.json for merge)
+- [x] 3.1 `rune-tree.js` — NEW: `RuneTree` class with Canvas renderer (197 nodes at x,y coords, edges as lines, pan/zoom via drag/wheel, click allocate/deallocate, tooltip on hover with name/level/stat/gold). API: `load()`, `render()`, `reset()`, `getAllocations()`
 
 ## Phase 4: Tab Navigation
 
