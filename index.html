@@ -47,9 +47,14 @@
         <label for="build-name">Build Name</label>
         <input type="text" id="build-name" placeholder="My Awesome Build" maxlength="60">
         <div class="level-control">
-          <label for="hero-level">Lv</label>
-          <input type="range" id="hero-level" min="1" max="100" value="100">
-          <span class="points-display">Level <strong id="level-display">100</strong></span>
+          <div class="level-header">
+            <label for="hero-level">Level</label>
+            <strong id="level-display" class="level-number">100</strong>
+          </div>
+          <div class="slider-wrap">
+            <input type="range" id="hero-level" min="1" max="100" value="100">
+            <output class="slider-val" for="hero-level">100</output>
+          </div>
         </div>
       </div>
 
@@ -106,7 +111,7 @@
         </div>
       </div>
       <div class="rune-tree-container" id="rune-tree-container">
-        <canvas id="rune-canvas"></canvas>
+        <div id="rune-container"></div>
         <div id="rune-tooltip" class="rune-tooltip"></div>
       </div>
     </div>

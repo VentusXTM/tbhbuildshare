@@ -108,21 +108,20 @@ class TBHBuildPlanner {
       const newHash = 'tab=' + tab;
       history.replaceState(null, '', '#' + newHash);
 
-      // Resize canvas when switching to rune tab
+      // Update SVG viewport when switching to rune tab
       if (tab === 'runes' && this.runeTree) {
-        // Force resize via the ResizeObserver
-        this.runeTree.dirty = true;
+        this.runeTree.render();
       }
     });
   }
 
   // ─── Rune Tree Init ───────────────────────────────────────
   initRuneTree() {
-    const canvas = document.getElementById('rune-canvas');
+    const container = document.getElementById('rune-container');
     const tooltip = document.getElementById('rune-tooltip');
-    if (!canvas || !tooltip) return;
+    if (!container || !tooltip) return;
 
-    this.runeTree = new RuneTree(canvas, tooltip, (key, level, delta) => {
+    this.runeTree = new RuneTree(container, tooltip, (key, level, delta) => {
       if (key === '__reset__') {
         this.runeAllocations = {};
       } else {
@@ -262,8 +261,23 @@ class TBHBuildPlanner {
 
     const levelEl = document.getElementById('hero-level');
     const levelDisp = document.getElementById('level-display');
-    if (levelEl) levelEl.value = this.build.level;
+    if (levelEl) {
+      levelEl.value = this.build.level;
+      this._updateSliderTooltip(levelEl);
+    }
     if (levelDisp) levelDisp.textContent = this.build.level;
+  }
+
+  /** Position the slider tooltip bubble at the current value */
+  _updateSliderTooltip(slider) {
+    const tooltip = slider?.nextElementSibling;
+    if (!slider || !tooltip || tooltip.tagName !== 'OUTPUT') return;
+    const val = parseInt(slider.value) || 1;
+    const min = parseInt(slider.min) || 1;
+    const max = parseInt(slider.max) || 100;
+    const pct = ((val - min) / (max - min)) * 100;
+    tooltip.textContent = val;
+    tooltip.style.setProperty('--slider-pct', pct + '%');
   }
 
   // ─── Skill Tree ───────────────────────────────────────────
@@ -420,26 +434,34 @@ class TBHBuildPlanner {
       return;
     }
 
-    const passiveHtml = investedPassives.map(s => `
+    const passiveHtml = investedPassives.map(s => {
+      const totalValue = s.statPerLevel * s.level;
+      const isAdditive = s.statModifier === 'additive';
+      return `
       <div class="passive-skill-item">
         <div style="width:24px;height:24px;flex-shrink:0;border-radius:4px;overflow:hidden;background:var(--bg-primary)">
           <img src="https://www.taskbarhero.wiki/game/skills/${s.icon}.png" width="24" height="24" alt="" loading="lazy"
                onerror="this.style.display='none'">
         </div>
         <div class="skill-info">
-          <span class="skill-name">${s.name}</span>
-          <span class="skill-meta">${STAT_LABELS[s.statBonus] || s.statBonus || 'Passive'}</span>
+          <span class="skill-name">${STAT_LABELS[s.statBonus] || s.statBonus || 'Passive'} +${totalValue}${isAdditive ? '%' : ''}</span>
+          <span class="skill-meta">Lv.${s.level}/${s.maxLevel}</span>
         </div>
-        <span class="level-badge">Lv.${s.level}/${s.maxLevel}</span>
+        <span class="level-badge">+${totalValue}${isAdditive ? '%' : ''}</span>
       </div>
-    `).join('');
+    `}).join('');
 
     // Aggregate stat bonuses across all invested passives
     const statsSummary = {};
     for (const s of investedPassives) {
       const key = s.statBonus;
       if (key) {
-        statsSummary[key] = (statsSummary[key] || 0) + s.level;
+        const value = s.statPerLevel * s.level;
+        const isAdditive = s.statModifier === 'additive';
+        if (!statsSummary[key]) {
+          statsSummary[key] = { total: 0, isAdditive };
+        }
+        statsSummary[key].total += value;
       }
     }
 
@@ -448,11 +470,11 @@ class TBHBuildPlanner {
         <h4 style="margin:12px 0 6px;font-size:13px;color:var(--text-primary)">Total Passive Benefits</h4>
         <div class="passive-summary-grid">
           ${Object.entries(statsSummary)
-            .sort((a, b) => b[1] - a[1])
-            .map(([stat, totalLevels]) => `
+            .sort((a, b) => b[1].total - a[1].total)
+            .map(([stat, data]) => `
               <div class="passive-summary-item">
                 <span class="ps-label">${STAT_LABELS[stat] || stat}</span>
-                <span class="ps-value">+${totalLevels} lv</span>
+                <span class="ps-value">+${data.total}${data.isAdditive ? '%' : ''}</span>
               </div>
             `).join('')}
         </div>
@@ -731,18 +753,52 @@ class TBHBuildPlanner {
         return;
       }
 
-      // Level slider
+      // Level slider (full save + render on release)
       if (e.target.id === 'hero-level') {
         this.build.level = parseInt(e.target.value) || 100;
         this.availablePoints = this.build.level;
         document.getElementById('level-display').textContent = this.build.level;
+        this._updateSliderTooltip(e.target);
         this.build.updatedAt = Date.now();
         this.saveToLocal();
         this.render();
         return;
       }
+    });
 
-      // Modal import
+    // Input events (immediate feedback while dragging)
+    document.addEventListener('input', (e) => {
+      if (e.target.id === 'hero-level') {
+        const val = parseInt(e.target.value) || 100;
+        this.build.level = val;
+        this.availablePoints = val;
+        document.getElementById('level-display').textContent = val;
+        this._updateSliderTooltip(e.target);
+        // Update points bar without full re-render
+        const barFill = document.querySelector('.bar-fill');
+        const barLabel = document.querySelector('.bar-label');
+        if (barFill || barLabel) {
+          this.calcUsedPoints();
+          const pct = Math.min((this.usedPoints / this.availablePoints) * 100, 100);
+          if (barFill) barFill.style.width = pct + '%';
+          if (barLabel) {
+            const avail = this.availablePoints - this.usedPoints;
+            const bar = barLabel.closest('.points-bar');
+            if (bar) {
+              bar.querySelector('.bar-label').innerHTML = `Skill Points: <strong>${this.usedPoints}</strong> / ${this.availablePoints}`;
+              const labels = bar.querySelectorAll('.bar-label');
+              if (labels.length >= 2) {
+                labels[1].textContent = avail >= 0 ? avail + ' left' : Math.abs(avail) + ' over';
+              }
+            }
+          }
+        }
+        return;
+      }
+    });
+
+    // Modal import (still inside change listener)
+    document.addEventListener('change', (e) => {
       if (e.target.id === 'import-json') {
         // handled by button
       }
