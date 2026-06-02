@@ -74,9 +74,14 @@ class TBHBuildPlanner {
     // Read current tab from URL hash
     const hash = window.location.hash;
     let activeTab = 'skills';
-    if (hash && hash.includes('tab=')) {
-      const tabMatch = hash.match(/tab=(skills|runes)/);
-      if (tabMatch) activeTab = tabMatch[1];
+    if (hash) {
+      if (hash.includes('rune=')) {
+        // Rune share link → open on rune tab
+        activeTab = 'runes';
+      } else if (hash.includes('tab=')) {
+        const tabMatch = hash.match(/tab=(skills|runes)/);
+        if (tabMatch) activeTab = tabMatch[1];
+      }
     }
     this.activeTab = activeTab;
 
@@ -138,6 +143,11 @@ class TBHBuildPlanner {
         this.runeTree.reset();
         // The reset callback handles clearing allocations
       }
+    });
+
+    // Share runes button
+    document.getElementById('rune-share')?.addEventListener('click', () => {
+      this.shareRuneLink();
     });
 
     // Load wiki-sourced rune tree data (self-contained, no merge needed)
@@ -215,6 +225,39 @@ class TBHBuildPlanner {
     }
 
     history.replaceState(null, '', '#' + newHash);
+  }
+
+  shareRuneLink() {
+    this.updateRuneShareLink();
+    const url = window.location.href;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(() => {
+        this.showToast('Rune link copied!', 'success');
+      }).catch(() => {
+        this._fallbackCopy(url);
+      });
+    } else {
+      this._fallbackCopy(url);
+    }
+  }
+
+  _fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      this.showToast('Rune link copied!', 'success');
+    } catch {
+      this.showModal('Share Rune Link',
+        `<p style="margin-bottom:12px;color:var(--text-secondary)">Copy this link to share your rune allocation:</p>
+         <textarea readonly onclick="this.select()">${text}</textarea>`
+      );
+    }
+    document.body.removeChild(textarea);
   }
 
   // ─── Render ───────────────────────────────────────────────
