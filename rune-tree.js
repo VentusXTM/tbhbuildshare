@@ -227,10 +227,10 @@ class RuneTree {
       // Background rect
       const bg = document.createElementNS(SVG_NS, 'rect');
       bg.setAttribute('class', 'node-bg');
-      bg.setAttribute('x', '-32');
-      bg.setAttribute('y', '-32');
-      bg.setAttribute('width', '64');
-      bg.setAttribute('height', '64');
+      bg.setAttribute('x', '-36');
+      bg.setAttribute('y', '-36');
+      bg.setAttribute('width', '72');
+      bg.setAttribute('height', '72');
       g.appendChild(bg);
 
       // Icon layer
@@ -240,10 +240,10 @@ class RuneTree {
       // Fallback rect (shown until image loads, or on error)
       const fallback = document.createElementNS(SVG_NS, 'rect');
       fallback.setAttribute('class', 'node-icon-fallback');
-      fallback.setAttribute('x', '-26');
-      fallback.setAttribute('y', '-26');
-      fallback.setAttribute('width', '52');
-      fallback.setAttribute('height', '52');
+      fallback.setAttribute('x', '-30');
+      fallback.setAttribute('y', '-30');
+      fallback.setAttribute('width', '60');
+      fallback.setAttribute('height', '60');
       fallback.setAttribute('rx', '6');
       fallback.setAttribute('fill', '#2a2a3a');
       iconLayer.appendChild(fallback);
@@ -252,10 +252,10 @@ class RuneTree {
       const text = document.createElementNS(SVG_NS, 'text');
       text.setAttribute('class', 'node-icon-text');
       text.setAttribute('x', '0');
-      text.setAttribute('y', '6');
+      text.setAttribute('y', '7');
       text.setAttribute('text-anchor', 'middle');
       text.setAttribute('fill', '#889');
-      text.setAttribute('font-size', '14');
+      text.setAttribute('font-size', '16');
       text.setAttribute('font-weight', 'bold');
       text.setAttribute('font-family', 'sans-serif');
       text.textContent = '?';
@@ -265,10 +265,10 @@ class RuneTree {
       if (node._iconFile) {
         const img = document.createElementNS(SVG_NS, 'image');
         img.setAttribute('class', 'node-icon');
-        img.setAttribute('x', '-26');
-        img.setAttribute('y', '-26');
-        img.setAttribute('width', '52');
-        img.setAttribute('height', '52');
+        img.setAttribute('x', '-30');
+        img.setAttribute('y', '-30');
+        img.setAttribute('width', '60');
+        img.setAttribute('height', '60');
         img.setAttribute('style', 'image-rendering:pixelated');
         img.setAttribute('href', `assets/runes/${node._iconFile}`);
         // On load: hide fallback rect + text so the image shows
@@ -514,8 +514,13 @@ class RuneTree {
     const statDisplay = node.stat || '';
 
     el.innerHTML = `
-      <div class="rune-tooltip-name">${node._displayName}</div>
-      <div class="rune-tooltip-stat">${statDisplay}</div>
+      <div class="rune-tooltip-header">
+        <div>
+          <div class="rune-tooltip-name">${node._displayName}</div>
+          <div class="rune-tooltip-stat">${statDisplay}</div>
+        </div>
+        ${node._iconFile ? `<img class="rune-tooltip-icon" src="assets/runes/${node._iconFile}" alt="" width="32" height="32">` : ''}
+      </div>
       ${currentValue ? `<div class="rune-tooltip-value">${currentValue}</div>` : ''}
       <div class="rune-tooltip-level">Level <strong>${level}</strong> / ${maxLv}</div>
       ${nextCost > 0
