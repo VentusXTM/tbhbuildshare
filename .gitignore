@@ -1,0 +1,6 @@
+# SDD artifacts (spec-driven development)
+openspec/
+
+# OS
+.DS_Store
+Thumbs.db

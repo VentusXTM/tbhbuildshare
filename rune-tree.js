@@ -3,40 +3,8 @@
 // ============================================================
 // Renders 197 rune nodes in SVG with pan/zoom, click to
 // allocate/deallocate, hover tooltips, and parent lock mechanic.
+// Data sourced from wiki's rune_tree.json for pixel-perfect layout.
 // ============================================================
-
-const RUNE_ICON_MAP = {
-  attackDamage:        { color: '#d4452a', abbr: 'ATK' },
-  attackSpeed:         { color: '#d47a2a', abbr: 'SPD' },
-  armor:               { color: '#2a6ad4', abbr: 'ARM' },
-  maxHp:               { color: '#2ad46a', abbr: 'HP'  },
-  hpRegen:             { color: '#2ad46a', abbr: 'REG' },
-  hpPerKill:           { color: '#4ad44a', abbr: 'HPK' },
-  blockChance:         { color: '#6a9ad4', abbr: 'BLC' },
-  hpLeech:             { color: '#4ad46a', abbr: 'LEE' },
-  hpPerHit:            { color: '#2ad45a', abbr: 'HPH' },
-  dodgeChance:         { color: '#6a8ad4', abbr: 'DOD' },
-  critChance:          { color: '#d46a2a', abbr: 'CRT' },
-  critDamage:          { color: '#d4552a', abbr: 'CDM' },
-  physicalDamage:      { color: '#d4452a', abbr: 'PHY' },
-  projectileDamage:    { color: '#d45a3a', abbr: 'PRO' },
-  aoeDamage:           { color: '#d43a2a', abbr: 'AOE' },
-  fireDamage:          { color: '#d4301a', abbr: 'FIR' },
-  coldDamage:          { color: '#3a8ad4', abbr: 'CLD' },
-  lightningDamage:     { color: '#d4c42a', abbr: 'LGT' },
-  elementalResistance: { color: '#4a6ad4', abbr: 'RES' },
-  areaOfEffect:        { color: '#7a4ad4', abbr: 'AOE' },
-  duration:            { color: '#9a4ad4', abbr: 'DUR' },
-  goldFind:            { color: '#d4a42a', abbr: 'GLD' },
-  xpBonus:             { color: '#6ad42a', abbr: 'EXP' },
-  energyRegen:         { color: '#b44ad4', abbr: 'ERG' },
-  energyMax:           { color: '#a43ad4', abbr: 'ENM' },
-  moveSpeed:           { color: '#3acce4', abbr: 'MOV' },
-  damageReduction:     { color: '#3a7ae4', abbr: 'DFR' },
-  castSpeed:           { color: '#4ab4d4', abbr: 'CAS' },
-  cooldownReduction:   { color: '#5a94d4', abbr: 'CDR' },
-  skillHeal:           { color: '#2ad47a', abbr: 'SKL' },
-};
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
@@ -51,6 +19,9 @@ class RuneTree {
     this.data = [];
     this.allocations = {};
     this.nodeMap = {};
+
+    // Spacing multiplier for node positions
+    this.spacing = 1.3;
 
     // Camera
     this.panX = 0;
@@ -109,30 +80,80 @@ class RuneTree {
     this.svg = svg;
   }
 
-  // ─── Load Data ────────────────────────────────────────────
+  // ─── Load Data (wiki format: { nodes, edges, startNodes, bounds }) ─
   load(data, allocations) {
-    this.data = data;
+    // Normalise data: accept both wiki format {nodes, edges} and
+    // the legacy array format for backward compat
+    const nodes = Array.isArray(data) ? data : (data.nodes || []);
+    const edges = Array.isArray(data) ? null : (data.edges || []);
+    const startNodes = data.startNodes || [];
+    this.data = nodes;
     this.allocations = allocations || {};
     this.nodeMap = {};
 
-    // Build lookup and parent references
-    for (const node of data) {
-      this.nodeMap[node.key] = node;
+    // Build lookup — convert numeric keys to strings for consistency
+    for (const node of nodes) {
+      const key = String(node.key);
+      this.nodeMap[key] = node;
+      node._key = key;
       node._parentKeys = [];
-      node._level = this.allocations[node.key] || 0;
+      node._level = this.allocations[key] || 0;
+      // Extract icon basename from wiki path (/game/runes/foo.png → foo.png)
+      node._iconFile = node.icon ? node.icon.split('/').pop() : null;
+      // Display name
+      node._displayName = (node.name && typeof node.name === 'object')
+        ? (node.name['en-US'] || node.name.en || node.key)
+        : (node.name || node.key);
+      // Build costs array from levels[]
+      if (node.levels && Array.isArray(node.levels)) {
+        node._costs = node.levels.map(l => l.costValue || 0);
+      } else {
+        node._costs = node.costs || [];
+      }
+      // maxLevel from levels length or explicit field
+      if (node.maxLevel == null && node.levels) {
+        node.maxLevel = node.levels.length;
+      }
     }
 
-    // Reverse connections to find parents
-    for (const node of data) {
-      for (const childKey of node.connections) {
-        const child = this.nodeMap[childKey];
-        if (child) {
-          child._parentKeys.push(node.key);
+    // Apply node spacing multiplier to all positions
+    for (const node of nodes) {
+      node.x *= this.spacing;
+      node.y *= this.spacing;
+    }
+
+    // Process edges to build parent/child connections
+    if (edges) {
+      for (const edge of edges) {
+        const fromKey = String(edge.from);
+        const toKey = String(edge.to);
+        const parent = this.nodeMap[fromKey];
+        const child = this.nodeMap[toKey];
+        if (parent && child) {
+          if (!parent._connections) parent._connections = [];
+          parent._connections.push(toKey);
+          child._parentKeys.push(fromKey);
+        }
+      }
+    } else {
+      // Legacy format: use node.connections directly
+      for (const node of nodes) {
+        if (node.connections) {
+          node._connections = node.connections.map(c => String(c));
+          for (const childKey of node._connections) {
+            const child = this.nodeMap[childKey];
+            if (child) {
+              child._parentKeys.push(node._key);
+            }
+          }
         }
       }
     }
 
-    // Compute lock state for all nodes
+    // Compute tiers via BFS from start nodes
+    this._computeTiers(startNodes);
+
+    // Compute lock state
     this._computeLocks();
 
     // Generate SVG DOM
@@ -143,22 +164,64 @@ class RuneTree {
 
     this._generateNodes();
     this._generateEdges();
-    this._centerView();
+    this._centerView(startNodes);
     this._updateViewport();
     this._updateVisualState();
+  }
+
+  // ─── Compute Tiers (BFS from start nodes) ────────────────
+  _computeTiers(startNodes) {
+    const visited = new Set();
+    const queue = [];
+    const startKeys = startNodes.map(k => String(k));
+
+    // Initialise all tiers to max (will be refined)
+    for (const node of this.data) {
+      node._tier = 999;
+    }
+
+    for (const key of startKeys) {
+      if (this.nodeMap[key]) {
+        this.nodeMap[key]._tier = 1;
+        visited.add(key);
+        queue.push(key);
+      }
+    }
+
+    let head = 0;
+    while (head < queue.length) {
+      const key = queue[head++];
+      const node = this.nodeMap[key];
+      const childTier = node._tier + 1;
+      const children = node._connections || [];
+      for (const childKey of children) {
+        const child = this.nodeMap[childKey];
+        if (child && !visited.has(childKey)) {
+          child._tier = childTier;
+          visited.add(childKey);
+          queue.push(childKey);
+        } else if (child && childTier < child._tier) {
+          // Update tier if we found a shorter path
+          child._tier = childTier;
+        }
+      }
+    }
+
+    // Nodes not reachable from start → assign tier 0
+    for (const node of this.data) {
+      if (node._tier === 999) node._tier = 0;
+    }
   }
 
   // ─── SVG DOM Generation ───────────────────────────────────
   _generateNodes() {
     for (const node of this.data) {
-      const info = RUNE_ICON_MAP[node.icon] ||
-                   RUNE_ICON_MAP[node.statBonus] ||
-                   { color: '#586178', abbr: '???' };
+      const key = node._key || String(node.key);
 
       // Root node group
       const g = document.createElementNS(SVG_NS, 'g');
       g.setAttribute('class', 'rune-node');
-      g.setAttribute('data-key', node.key);
+      g.setAttribute('data-key', key);
       g.setAttribute('transform', `translate(${node.x}, ${node.y})`);
 
       // Background rect
@@ -174,7 +237,7 @@ class RuneTree {
       const iconLayer = document.createElementNS(SVG_NS, 'g');
       iconLayer.setAttribute('class', 'node-icon-layer');
 
-      // Fallback colored rect
+      // Fallback rect (shown until image loads, or on error)
       const fallback = document.createElementNS(SVG_NS, 'rect');
       fallback.setAttribute('class', 'node-icon-fallback');
       fallback.setAttribute('x', '-26');
@@ -182,32 +245,43 @@ class RuneTree {
       fallback.setAttribute('width', '52');
       fallback.setAttribute('height', '52');
       fallback.setAttribute('rx', '6');
-      fallback.setAttribute('fill', info.color);
+      fallback.setAttribute('fill', '#2a2a3a');
       iconLayer.appendChild(fallback);
 
-      // Abbreviation text
+      // Abbreviation text (shown until image loads)
       const text = document.createElementNS(SVG_NS, 'text');
       text.setAttribute('class', 'node-icon-text');
       text.setAttribute('x', '0');
       text.setAttribute('y', '6');
       text.setAttribute('text-anchor', 'middle');
-      text.setAttribute('fill', '#fff');
+      text.setAttribute('fill', '#889');
       text.setAttribute('font-size', '14');
       text.setAttribute('font-weight', 'bold');
       text.setAttribute('font-family', 'sans-serif');
-      text.textContent = info.abbr;
+      text.textContent = '?';
       iconLayer.appendChild(text);
 
-      // Image icon (hidden on error, fallback shows through)
-      const img = document.createElementNS(SVG_NS, 'image');
-      img.setAttribute('class', 'node-icon');
-      img.setAttribute('x', '-26');
-      img.setAttribute('y', '-26');
-      img.setAttribute('width', '52');
-      img.setAttribute('height', '52');
-      img.setAttribute('href', `/game/runes/${node.icon}.png`);
-      img.addEventListener('error', () => { img.style.display = 'none'; });
-      iconLayer.appendChild(img);
+      // Wiki icon image (pixel-art, covers fallback on load)
+      if (node._iconFile) {
+        const img = document.createElementNS(SVG_NS, 'image');
+        img.setAttribute('class', 'node-icon');
+        img.setAttribute('x', '-26');
+        img.setAttribute('y', '-26');
+        img.setAttribute('width', '52');
+        img.setAttribute('height', '52');
+        img.setAttribute('style', 'image-rendering:pixelated');
+        img.setAttribute('href', `assets/runes/${node._iconFile}`);
+        // On load: hide fallback rect + text so the image shows
+        img.addEventListener('load', () => {
+          fallback.style.display = 'none';
+          text.style.display = 'none';
+        });
+        // On error: hide image, fallback remains visible
+        img.addEventListener('error', () => {
+          img.style.display = 'none';
+        });
+        iconLayer.appendChild(img);
+      }
 
       g.appendChild(iconLayer);
 
@@ -240,13 +314,14 @@ class RuneTree {
 
       g.appendChild(badgeG);
       this.nodesGroup.appendChild(g);
-      this.nodeElMap[node.key] = g;
+      this.nodeElMap[key] = g;
     }
   }
 
   _generateEdges() {
     for (const node of this.data) {
-      for (const childKey of node.connections) {
+      const children = node._connections || [];
+      for (const childKey of children) {
         const child = this.nodeMap[childKey];
         if (!child) continue;
 
@@ -259,13 +334,13 @@ class RuneTree {
         line.setAttribute('vector-effect', 'non-scaling-stroke');
 
         this.connectionsGroup.appendChild(line);
-        this.edgeElMap.push({ line, fromKey: node.key });
+        this.edgeElMap.push({ line, fromKey: node._key });
       }
     }
   }
 
   // ─── Camera / Viewport ────────────────────────────────────
-  _centerView() {
+  _centerView(startNodes) {
     if (!this.data || this.data.length === 0) return;
 
     const xs = this.data.map(n => n.x);
@@ -297,13 +372,14 @@ class RuneTree {
   // ─── Visual State ─────────────────────────────────────────
   _updateVisualState() {
     for (const node of this.data) {
-      const el = this.nodeElMap[node.key];
+      const key = node._key || String(node.key);
+      const el = this.nodeElMap[key];
       if (!el) continue;
 
       el.classList.toggle('has-level', node._level > 0);
       el.classList.toggle('max-level', node._level >= node.maxLevel);
       el.classList.toggle('locked', node._locked);
-      el.classList.toggle('selected', node.key === this.selectedKey);
+      el.classList.toggle('selected', key === this.selectedKey);
 
       const badge = el.querySelector('.node-level-badge');
       if (badge) {
@@ -349,8 +425,8 @@ class RuneTree {
   // ─── Lock Mechanic ────────────────────────────────────────
   _computeLocks() {
     for (const node of this.data) {
-      // Root nodes (tier 1, innermost) are always unlocked
-      if (node.tier === 1) {
+      // Root nodes (tier 1) are always unlocked
+      if (node._tier === 1) {
         node._locked = false;
         continue;
       }
@@ -386,7 +462,7 @@ class RuneTree {
     if (!node || !node._level || node._level <= 0) return false;
 
     // Check if any children depend on this node
-    const childrenDepend = node.connections.some(childKey => {
+    const childrenDepend = (node._connections || []).some(childKey => {
       const child = this.nodeMap[childKey];
       return child && child._level > 0 &&
         child._parentKeys.filter(pk => pk !== key)
@@ -417,18 +493,34 @@ class RuneTree {
     if (!el) return;
 
     const level = node._level || 0;
-    const nextCost = level < node.maxLevel ? node.costs[level] : 0;
-    const totalStat = (level * node.statPerLevel).toFixed(node.statPerLevel < 1 ? 1 : 0);
-    const statName = this._statDisplay(node.statBonus);
+    const costs = node._costs || [];
+    const nextCost = level < node.maxLevel ? costs[level] : 0;
+    const maxLv = node.maxLevel || 1;
+
+    // Find stat value at current level
+    let currentValue = '';
+    if (node.levels && Array.isArray(node.levels)) {
+      const values = [];
+      for (let i = 0; i < level && i < node.levels.length; i++) {
+        const v = node.levels[i].value;
+        if (v != null) values.push(v);
+      }
+      if (values.length > 0) {
+        currentValue = '+ ' + values.join('/');
+      }
+    }
+
+    // Effect description (just stat name for now)
+    const statDisplay = node.stat || '';
 
     el.innerHTML = `
-      <div class="rune-tooltip-name">${node.name}</div>
-      <div class="rune-tooltip-stat">${statName}: +${node.statPerLevel} per level</div>
-      <div class="rune-tooltip-level">Level <strong>${level}</strong> / ${node.maxLevel}</div>
-      <div class="rune-tooltip-total">Current total: +${totalStat} ${statName}</div>
+      <div class="rune-tooltip-name">${node._displayName}</div>
+      <div class="rune-tooltip-stat">${statDisplay}</div>
+      ${currentValue ? `<div class="rune-tooltip-value">${currentValue}</div>` : ''}
+      <div class="rune-tooltip-level">Level <strong>${level}</strong> / ${maxLv}</div>
       ${nextCost > 0
         ? `<div class="rune-tooltip-cost">Next level: <span class="gold">${this._formatGold(nextCost)}</span></div>`
-        : level >= node.maxLevel
+        : level >= maxLv
           ? '<div class="rune-tooltip-max">MAX LEVEL</div>'
           : '<div class="rune-tooltip-free">First level: FREE</div>'}
       ${node._locked ? '<div class="rune-tooltip-locked">Requires parent node with 1+ level</div>' : ''}
@@ -464,33 +556,12 @@ class RuneTree {
   }
 
   // ─── Helpers ──────────────────────────────────────────────
-  _statDisplay(stat) {
-    const names = {
-      attackDamage: 'Attack Damage', attackSpeed: 'Attack Speed',
-      critChance: 'Crit Chance', critDamage: 'Crit Damage',
-      maxHp: 'Max HP', armor: 'Armor',
-      moveSpeed: 'Move Speed', castSpeed: 'Cast Speed',
-      cooldownReduction: 'CD Reduction', hpRegen: 'HP Regen',
-      hpPerKill: 'HP/Kill', hpLeech: 'Life Leech',
-      hpPerHit: 'HP/Hit', blockChance: 'Block Chance',
-      dodgeChance: 'Dodge Chance', physicalDamage: 'Phys Dmg',
-      fireDamage: 'Fire Dmg', coldDamage: 'Cold Dmg',
-      lightningDamage: 'Lightning Dmg', elementalResistance: 'Elem Resist',
-      damageReduction: 'Dmg Red', areaOfEffect: 'AoE',
-      aoeDamage: 'AoE Dmg', projectileDamage: 'Proj Dmg',
-      skillHeal: 'Skill Heal', duration: 'Duration',
-      goldFind: 'Gold Find', xpBonus: 'XP Bonus',
-      energyRegen: 'Energy Regen', energyMax: 'Energy Max'
-    };
-    return names[stat] || stat;
-  }
-
-  _formatGold(copper) {
-    if (copper >= 10000) {
-      const gold = (copper / 10000).toFixed(copper % 10000 === 0 ? 0 : 2);
-      return gold + 'g';
+  _formatGold(amount) {
+    // costValue from wiki data is in gold (e.g. 5000 = 5,000 Gold)
+    if (amount >= 1000) {
+      return amount.toLocaleString() + ' Gold';
     }
-    return copper + ' copper';
+    return amount + ' Gold';
   }
 
   // ─── Events ───────────────────────────────────────────────

@@ -140,29 +140,19 @@ class TBHBuildPlanner {
       }
     });
 
-    // Load data
-    Promise.all([
-      fetch('data/rune_tree.json').then(r => r.json()),
-      fetch('data/runes.json').then(r => r.json())
-    ]).then(([treeData, runeData]) => {
-      // Merge rune details into tree nodes
-      const merged = treeData.map(node => {
-        const rune = runeData.find(r => r.id === node.id);
-        return {
-          ...node,
-          statBonus: rune?.statBonus,
-          statPerLevel: rune?.statPerLevel,
-          costs: rune?.costs
-        };
+    // Load wiki-sourced rune tree data (self-contained, no merge needed)
+    fetch('data/rune_tree.json')
+      .then(r => r.json())
+      .then(treeData => {
+        this.runeTree.load(treeData, this.runeAllocations);
+        this.runeTree.render();
+        this.updateRuneTotalGold();
+      })
+      .catch(err => {
+        console.error('Failed to load rune data:', err);
+        const container = document.getElementById('rune-tree-container');
+        if (container) container.innerHTML = '<div class="empty-state"><h3>Failed to load rune data</h3><button class="btn btn-primary" onclick="planner.initRuneTree()">Retry</button></div>';
       });
-      this.runeTree.load(merged, this.runeAllocations);
-      this.runeTree.render();
-      this.updateRuneTotalGold();
-    }).catch(err => {
-      console.error('Failed to load rune data:', err);
-      const container = document.getElementById('rune-tree-container');
-      if (container) container.innerHTML = '<div class="empty-state"><h3>Failed to load rune data</h3><button class="btn btn-primary" onclick="planner.initRuneTree()">Retry</button></div>';
-    });
   }
 
   // ─── Rune Persistence ─────────────────────────────────────
@@ -189,22 +179,24 @@ class TBHBuildPlanner {
     if (!this.runeTree || !this.runeTree.data) return 0;
     let total = 0;
     for (const node of this.runeTree.data) {
-      const level = this.runeAllocations[node.key] || 0;
-      if (level > 0 && node.costs) {
+      const key = node._key || String(node.key);
+      const level = this.runeAllocations[key] || 0;
+      const costs = node._costs || node.costs || [];
+      if (level > 0 && costs.length > 0) {
         for (let i = 0; i < level; i++) {
-          total += node.costs[i] || 0;
+          total += costs[i] || 0;
         }
       }
     }
     return total;
   }
 
-  _formatGold(copper) {
-    if (copper >= 10000) {
-      const g = (copper / 10000).toFixed(0);
-      return g.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' Gold';
+  _formatGold(amount) {
+    // costValue from wiki data is in gold (e.g. 5000 = 5,000 Gold)
+    if (amount >= 1000) {
+      return amount.toLocaleString() + ' Gold';
     }
-    return copper + ' copper';
+    return amount + ' Gold';
   }
 
   updateRuneShareLink() {
