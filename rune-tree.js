@@ -222,6 +222,7 @@ class RuneTree {
       const g = document.createElementNS(SVG_NS, 'g');
       g.setAttribute('class', 'rune-node');
       g.setAttribute('data-key', key);
+      g.setAttribute('data-icon', node._iconFile || '');
       g.setAttribute('transform', `translate(${node.x}, ${node.y})`);
 
       // Background rect
@@ -405,9 +406,30 @@ class RuneTree {
 
   // ─── Reset Allocations ────────────────────────────────────
   reset() {
-    this.load(this.data, {});
+    for (const node of this.data) {
+      node._level = 0;
+    }
+    this.allocations = {};
+    this._computeLocks();
+    this._updateVisualState();
+    this._updateViewport();
     if (this.onAllocate) {
       this.onAllocate('__reset__', 0, 0);
+    }
+  }
+
+  // ─── Highlight nodes matching an icon (for index filtering) ─
+  highlightByIcon(iconFile) {
+    for (const key of Object.keys(this.nodeElMap)) {
+      const el = this.nodeElMap[key];
+      if (!el) continue;
+      if (iconFile) {
+        const match = el.getAttribute('data-icon') === iconFile;
+        el.classList.toggle('rune-highlighted', match);
+        el.classList.toggle('rune-dimmed', !match);
+      } else {
+        el.classList.remove('rune-highlighted', 'rune-dimmed');
+      }
     }
   }
 

@@ -40,6 +40,7 @@ class TBHBuildPlanner {
     this.usedPoints = 0;
     this.maxLevel = 100;
     this.runeTree = null;
+    this.marketBrowser = null;
     this.runeAllocations = this.loadRuneAllocations();
     this.activeTab = 'skills';
     this.init();
@@ -79,7 +80,7 @@ class TBHBuildPlanner {
         // Rune share link → open on rune tab
         activeTab = 'runes';
       } else if (hash.includes('tab=')) {
-        const tabMatch = hash.match(/tab=(skills|runes)/);
+        const tabMatch = hash.match(/tab=(skills|runes|market)/);
         if (tabMatch) activeTab = tabMatch[1];
       }
     }
@@ -117,6 +118,11 @@ class TBHBuildPlanner {
       if (tab === 'runes' && this.runeTree) {
         this.runeTree.render();
       }
+
+      // Lazy-init market tab on first switch
+      if (tab === 'market' && !this.marketBrowser) {
+        this.initMarketTab();
+      }
     });
   }
 
@@ -129,6 +135,12 @@ class TBHBuildPlanner {
     this.runeTree = new RuneTree(container, tooltip, (key, level, delta) => {
       if (key === '__reset__') {
         this.runeAllocations = {};
+        // Clear legend selection and tree highlight
+        const sel = document.querySelector('.rune-legend-item.selected');
+        if (sel) sel.classList.remove('selected');
+        document.getElementById('rune-info').style.display = 'none';
+        document.getElementById('rune-info-empty').style.display = 'flex';
+        this.runeTree.highlightByIcon(null);
       } else {
         this.runeAllocations[key] = level;
       }
@@ -157,12 +169,31 @@ class TBHBuildPlanner {
         this.runeTree.load(treeData, this.runeAllocations);
         this.runeTree.render();
         this.updateRuneTotalGold();
+        this.renderRuneLegend(treeData.nodes);
       })
       .catch(err => {
         console.error('Failed to load rune data:', err);
         const container = document.getElementById('rune-tree-container');
         if (container) container.innerHTML = '<div class="empty-state"><h3>Failed to load rune data</h3><button class="btn btn-primary" onclick="planner.initRuneTree()">Retry</button></div>';
       });
+  }
+
+  // ─── Market Tab Init ───────────────────────────────────────
+  initMarketTab() {
+    const container = document.getElementById('tab-market');
+    if (!container) return;
+
+    // If re-initializing (e.g., after error), clean up first
+    if (this.marketBrowser) {
+      this.marketBrowser.destroy();
+      this.marketBrowser = null;
+    }
+
+    this.marketBrowser = new MarketBrowser(container, (err) => {
+      console.error('Market tab error:', err);
+      container.innerHTML = `<div class="empty-state"><h3>Failed to load market data</h3><p>${err.message}</p><button class="btn btn-primary" onclick="planner.initMarketTab()">Retry</button></div>`;
+    });
+    this.marketBrowser.fetch();
   }
 
   // ─── Rune Persistence ─────────────────────────────────────
@@ -207,6 +238,106 @@ class TBHBuildPlanner {
       return amount.toLocaleString() + ' Gold';
     }
     return amount + ' Gold';
+  }
+
+  // ─── Rune Legend ───────────────────────────────────────────
+  renderRuneLegend(nodes) {
+    const grid = document.getElementById('rune-legend-grid');
+    const countEl = document.querySelector('.rune-legend-count');
+    if (!grid) return;
+
+    // Group nodes by icon file — 39 unique icons for 197 nodes
+    const iconMap = {};
+    for (const node of nodes) {
+      const iconFile = node.icon ? node.icon.split('/').pop() : null;
+      if (!iconFile) continue;
+      if (!iconMap[iconFile]) {
+        iconMap[iconFile] = { iconFile, names: [], stat: node.stat || '' };
+      }
+      const displayName = (node.name && typeof node.name === 'object')
+        ? (node.name['en-US'] || node.name.en || 'Unknown')
+        : (node.name || 'Unknown');
+      if (!iconMap[iconFile].names.includes(displayName)) {
+        iconMap[iconFile].names.push(displayName);
+      }
+    }
+
+    // Category ordering
+    const categoryOrder = [
+      { name: 'Offensive', match: f => /AttackDamage|AttackSpeed|MoveSpeed/.test(f) },
+      { name: 'Defensive', match: f => /Armor/.test(f) },
+      { name: 'Gold', match: f => /Gold/.test(f) },
+      { name: 'XP', match: f => /Exp|Exp/.test(f) },
+      { name: 'Chest', match: f => /Chest/.test(f) },
+      { name: 'Utility', match: f => /Slot|Stash|Offline|Wave|Arrange|Inventory/.test(f) },
+    ];
+
+    const entries = Object.values(iconMap);
+    entries.sort((a, b) => {
+      const catA = categoryOrder.findIndex(c => c.match(a.iconFile));
+      const catB = categoryOrder.findIndex(c => c.match(b.iconFile));
+      if (catA !== catB) return (catA === -1 ? 999 : catA) - (catB === -1 ? 999 : catB);
+      return a.names[0].localeCompare(b.names[0]);
+    });
+
+    if (countEl) countEl.textContent = `(${entries.length} unique)`;
+
+    grid.innerHTML = entries.map(e => `
+      <div class="rune-legend-item" data-icon="${e.iconFile}">
+        <img src="assets/runes/${e.iconFile}" alt="${e.names[0]}" width="32" height="32" loading="lazy"
+             onerror="this.style.display='none'">
+      </div>
+    `).join('');
+
+    // Click a rune → show info panel
+    const infoPanel = document.getElementById('rune-info');
+    const infoEmpty = document.getElementById('rune-info-empty');
+    const infoImg = document.getElementById('rune-info-img');
+    const infoName = document.getElementById('rune-info-name');
+    const infoStat = document.getElementById('rune-info-stat');
+    const infoAliases = document.getElementById('rune-info-aliases');
+
+    let selectedItem = null;
+    grid.addEventListener('click', (e) => {
+      const item = e.target.closest('.rune-legend-item');
+      if (!item) return;
+
+      // Deselect if clicking the same item again
+      if (item === selectedItem) {
+        item.classList.remove('selected');
+        selectedItem = null;
+        infoPanel.style.display = 'none';
+        infoEmpty.style.display = 'flex';
+        if (this.runeTree) this.runeTree.highlightByIcon(null);
+        return;
+      }
+
+      const iconFile = item.dataset.icon;
+      const entry = iconMap[iconFile];
+      if (!entry) return;
+
+      // Update selection visual
+      if (selectedItem) selectedItem.classList.remove('selected');
+      item.classList.add('selected');
+      selectedItem = item;
+
+      // Filter tree — dim all nodes except those matching this icon
+      if (this.runeTree) this.runeTree.highlightByIcon(entry.iconFile);
+
+      // Populate info panel
+      infoImg.src = `assets/runes/${entry.iconFile}`;
+      infoImg.alt = entry.names[0];
+      infoName.textContent = entry.names[0];
+      infoStat.textContent = entry.stat || '';
+      infoStat.style.display = entry.stat ? '' : 'none';
+      infoAliases.textContent = entry.names.length > 1
+        ? 'Also: ' + entry.names.slice(1).join(', ')
+        : '';
+      infoAliases.style.display = entry.names.length > 1 ? '' : 'none';
+
+      infoPanel.style.display = 'flex';
+      infoEmpty.style.display = 'none';
+    });
   }
 
   updateRuneShareLink() {

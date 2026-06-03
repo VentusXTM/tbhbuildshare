@@ -31,6 +31,7 @@
     <div class="tab-bar" id="tab-bar">
       <button class="tab-btn active" data-tab="skills">Skill Planner</button>
       <button class="tab-btn" data-tab="runes">Rune Tree</button>
+      <button class="tab-btn" data-tab="market">Market</button>
     </div>
 
     <!-- TAB: SKILL PLANNER -->
@@ -111,17 +112,40 @@
           <button class="btn btn-sm btn-outline" id="rune-reset">Reset All</button>
         </div>
       </div>
-      <div class="rune-tree-container" id="rune-tree-container">
-        <div id="rune-container"></div>
-        <div id="rune-tooltip" class="rune-tooltip"></div>
+      <div class="rune-layout">
+        <div class="rune-tree-container" id="rune-tree-container">
+          <div id="rune-container"></div>
+          <div id="rune-tooltip" class="rune-tooltip"></div>
+        </div>
+        <div id="rune-legend" class="rune-legend">
+          <div id="rune-info" class="rune-info" style="display:none">
+            <div class="rune-info-icon">
+              <img id="rune-info-img" src="" alt="" width="40" height="40">
+            </div>
+            <div class="rune-info-body">
+              <div id="rune-info-name" class="rune-info-name"></div>
+              <div id="rune-info-stat" class="rune-info-stat"></div>
+              <div id="rune-info-aliases" class="rune-info-aliases"></div>
+            </div>
+          </div>
+          <div id="rune-info-empty" class="rune-info rune-info-empty">
+            <div class="rune-info-empty-text">Click a rune to see details</div>
+          </div>
+          <h3 class="rune-legend-title">Rune Index <span class="rune-legend-count"></span></h3>
+          <div id="rune-legend-grid" class="rune-legend-grid"></div>
+        </div>
       </div>
     </div>
+
+    <!-- TAB: MARKET -->
+    <div id="tab-market" class="tab-content"></div>
 
   </main>
 
   <!-- ─── Scripts ─────────────────────────────────────────── -->
   <script src="data.js"></script>
   <script src="rune-tree.js"></script>
+  <script src="market.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
